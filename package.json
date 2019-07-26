@@ -4,9 +4,10 @@
   "description": "Template literal tag to remove excess whitespace and newlines from strings.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": "https://github.com/iansan5653/compress-tag",
   "scripts": {
     "start": "tsc",
-    "prepublish": "tsc"
+    "prepare": "tsc"
   },
   "author": {
     "name": "Ian Sanders",
@@ -14,14 +15,16 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/mocha": "^5.2.7",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "eslint": "^6.1.0",
     "eslint-config-google": "^0.13.0",
     "eslint-plugin-jsdoc": "^15.7.2",
+    "mocha": "^6.2.0",
     "prettier": "^1.18.2",
+    "ts-mocha": "^6.0.0",
     "typescript": "^3.5.3"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
