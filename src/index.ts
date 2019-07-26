@@ -18,6 +18,29 @@ type TemplateLiteralTag = (
 ) => string;
 
 /**
+ * Merge two arrays together into a new array, alternating every other element
+ * starting with the first element of `a`. If one array is longer than the
+ * other, extra elements will be added onto the end of the result.
+ * @param a The array whose first element will be the first element of the
+ * output array.
+ * @param b The array to merge into `a`.
+ * @example
+ * merge([1, 2, 3], ["A", "B", "C", "D", "E"]);
+ * // => [1, "A", 2, "B", 3, "C", "D", "E"]
+ */
+function merge<A extends any[], B extends any[]>(
+  a: A,
+  b: B
+): Array<A[number] | B[number]> {
+  const result = [];
+  for (let i = 0; i < Math.max(a.length, b.length); i++) {
+    if(i in a) result.push(a[i]);
+    if(i in b) result.push(b[i]);
+  };
+  return result;
+}
+
+/**
  * Generate a template literal tag that compresses (AKA minifies) a template
  * string. In this context, compress is defined as removing line breaks and
  * trailing / leading spaces from each line.
@@ -27,8 +50,8 @@ type TemplateLiteralTag = (
  */
 function generateCompressTag(tight: boolean = false): TemplateLiteralTag {
   return function(strings, ...placeholders) {
-    return strings
-      .reduce((result, string, i) => (result + placeholders[i - 1] + string))
+    return merge(Array.from(strings), placeholders)
+      .join("")
       .replace(/\s*[\r\n]+\s*/g, tight ? " " : "")
       .trim();
   }
