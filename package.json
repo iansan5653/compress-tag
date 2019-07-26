@@ -6,8 +6,8 @@
   "types": "dist/index.d.ts",
   "repository": "https://github.com/iansan5653/compress-tag",
   "scripts": {
-    "start": "tsc",
-    "prepare": "tsc"
+    "build": "tsc",
+    "test": "npm run build && ts-mocha"
   },
   "author": {
     "name": "Ian Sanders",

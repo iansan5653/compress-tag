@@ -1,8 +1,9 @@
 /**
- * @fileoverview compress-tag | Template literal tag to remove excess whitespace
- * and newlines from strings.
+ * @fileoverview **compress-tag** | Template literal tag to remove excess
+ * whitespace and newlines from strings.
  * @author Ian Sanders
  * @copyright 2019 Ian Sanders
+ * @license MIT
  */
 
 /**
