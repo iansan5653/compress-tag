@@ -8,8 +8,8 @@
 import * as assert from "assert";
 import {compress, compressTight, c, t} from "./index";
 
-suite("Normal Function Names", function() {
-  context("compress", function() {
+context("Normal Function Names", function() {
+  context("#compress", function() {
     describe("properly resolves template literals", function() {
       it("should not modify single word strings", function() {
         assert.strictEqual(`test`, compress`test`);
@@ -163,7 +163,7 @@ suite("Normal Function Names", function() {
     });
   });
 
-  context("compressTight", function() {
+  context("#compressTight", function() {
     describe("properly resolves template literals", function() {
       it("should not modify single word strings", function() {
         assert.strictEqual(`test`, compressTight`test`);
@@ -317,8 +317,8 @@ suite("Normal Function Names", function() {
   });
 });
 
-suite("Shorthand Function Names", function() {
-  context("compress", function() {
+context("Shorthand Function Names", function() {
+  context("#c", function() {
     describe("properly resolves template literals", function() {
       it("should not modify single word strings", function() {
         assert.strictEqual(`test`, c`test`);
@@ -466,7 +466,7 @@ suite("Shorthand Function Names", function() {
     });
   });
 
-  context("compressTight", function() {
+  context("#t", function() {
     describe("properly resolves template literals", function() {
       it("should not modify single word strings", function() {
         assert.strictEqual(`test`, t`test`);
