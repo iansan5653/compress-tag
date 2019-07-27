@@ -52,8 +52,8 @@ function merge<A extends any[], B extends any[]>(
 function generateCompressTag(tight: boolean = false): TemplateLiteralTag {
   return function(strings, ...placeholders) {
     return merge(Array.from(strings), placeholders)
-      .join("")
-      .replace(/\s*[\r\n]+\s*/g, tight ? " " : "")
+      .reduce((result, element) => result + element, "")
+      .replace(/\s*[\r\n]+\s*/g, tight ? "" : " ")
       .trim();
   }
 }
