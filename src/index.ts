@@ -104,3 +104,50 @@ export const compress = generateCompressTag();
  * // => "<div><span>This is some sample text.</span></div>"
  */
 export const compressTight = generateCompressTag(true);
+
+/**
+ * Parses the string and placeholders as normal, then removes any line breaks
+ * and the spaces surrounding each line (ie, indentation), replacing each line
+ * break with a single space. Empty lines are removed completely.
+ * @param strings Array of string values located between the placeholders.
+ *
+ * **Note:** You should typically not need to pass this value directly to the
+ * function. Instead, use it as a template literal tag per the example.
+ * @param placeholders Values of the placeholder expressions.
+ *
+ * **Note:** You should typically not need to pass this value directly to the
+ * function. Instead, use it as a template literal tag per the example.
+ * @returns The processed, minified / compressed template string.
+ * @example
+ * let sampleText = "This is some sample text."
+ * c`
+ *   <div>
+ *     <span>${sampleText}</span>
+ *   </div>
+ * `
+ * // => "<div> <span>This is some sample text.</span> </div>"
+ */
+export const c = compress;
+
+/**
+ * Parses the string and placeholders as normal, then removes any line breaks
+ * and the spaces surrounding each line (ie, indentation).
+ * @param strings Array of string values located between the placeholders.
+ *
+ * **Note:** You should typically not need to pass this value directly to the
+ * function. Instead, use it as a template literal tag per the example.
+ * @param placeholders Values of the placeholder expressions.
+ *
+ * **Note:** You should typically not need to pass this value directly to the
+ * function. Instead, use it as a template literal tag per the example.
+ * @returns The processed, minified / compressed template string.
+ * @example
+ * let sampleText = "This is some sample text."
+ * t`
+ *   <div>
+ *     <span>${sampleText}</span>
+ *   </div>
+ * `
+ * // => "<div><span>This is some sample text.</span></div>"
+ */
+export const t = compressTight;
