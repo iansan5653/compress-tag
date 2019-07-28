@@ -69,17 +69,17 @@ context("Primary Tag Behavior", function() {
         );
       });
 
-      it("should remove CRLF newlines", function() {
+      it("should not remove manual CRLF newlines", function() {
         assert.strictEqual(
           compress`this has \r\n a new line`,
-          "this has a new line"
+          "this has \r\n a new line"
         );
       });
 
-      it("should remove LF newlines", function() {
+      it("should not remove manual LF newlines", function() {
         assert.strictEqual(
           compress`this has \n a new line`,
-          "this has a new line"
+          "this has \n a new line"
         );
       });
 
@@ -146,18 +146,26 @@ context("Primary Tag Behavior", function() {
       it("should remove tabs from lines", function() {
         assert.strictEqual(
           compress`this has 
-  \t\t\t\t\ttabs\t\t\t\t\t
+  								tab characters					
   around a line`,
-          "this has tabs around a line"
+          "this has tab characters around a line"
         );
       });
 
       it("should not affect internal whitespace", function() {
         assert.strictEqual(
           compress`this has
-          internal          and external tabs\t\t\t\tand
+          internal          and external tabs				and
           spaces`,
-          "this has internal          and external tabs\t\t\t\tand spaces"
+          "this has internal          and external tabs				and spaces"
+        );
+      });
+
+      it("should not affect manual tabs", function() {
+        assert.strictEqual(
+          compress`this has 
+          \ta manual tab`,
+          "this has \ta manual tab"
         );
       });
     });
@@ -222,17 +230,17 @@ context("Primary Tag Behavior", function() {
         );
       });
 
-      it("should remove CRLF newlines", function() {
+      it("should not remove manual CRLF newlines", function() {
         assert.strictEqual(
           compressTight`this has \r\n a new line`,
-          "this hasa new line"
+          "this has \r\n a new line"
         );
       });
 
-      it("should remove LF newlines", function() {
+      it("should not remove manual LF newlines", function() {
         assert.strictEqual(
           compressTight`this has \n a new line`,
-          "this hasa new line"
+          "this has \n a new line"
         );
       });
 
@@ -299,18 +307,26 @@ context("Primary Tag Behavior", function() {
       it("should remove tabs from lines", function() {
         assert.strictEqual(
           compressTight`this has 
-  \t\t\t\t\ttabs\t\t\t\t\t
+  								tab characters					
   around a line`,
-          "this hastabsaround a line"
+          "this hastab charactersaround a line"
         );
       });
 
       it("should not affect internal whitespace", function() {
         assert.strictEqual(
           compressTight`this has
-          internal          and external tabs\t\t\t\tand
+          internal          and external tabs				and
           spaces`,
-          "this hasinternal          and external tabs\t\t\t\tandspaces"
+          "this hasinternal          and external tabs				andspaces"
+        );
+      });
+
+      it("should not affect manual tabs", function() {
+        assert.strictEqual(
+          compressTight`this has 
+          \ta manual tab`,
+          "this has\ta manual tab"
         );
       });
     });

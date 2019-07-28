@@ -41,20 +41,31 @@ function merge<A extends any[], B extends any[]>(
   return result;
 }
 
+function deescape(raw: string): string {
+  return raw.replace("\\n", "\n").replace("\\r", "\r").replace("\\t", "\t")
+    .replace("\\\"", "\"").replace("\\\'", "\'").replace("\\b", "\b")
+    .replace("\\f", "\f").replace("\\v", "\v").replace("\\0", "\0")
+    .replace("\\\\", "\\");
+}
+
 /**
  * Generate a template literal tag that compresses (AKA minifies) a template
  * string. In this context, compress is defined as removing line breaks and
  * trailing / leading spaces from each line.
+ * 
+ * If you desire a linebreak to be present in the final result, you must provide
+ * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
+ * the result, you must include that as a tab character `\t`.
  * @param tight If `true`, will not include spaces where the line breaks used to
  * be.
  * @returns A template literal tag.
  */
 function generateCompressTag(tight: boolean = false): TemplateLiteralTag {
   return function(strings, ...placeholders) {
-    return merge(Array.from(strings), placeholders)
+    return deescape(merge(Array.from(strings.raw), placeholders)
       .reduce((result, element) => result + element, "")
       .replace(/\s*[\r\n]+\s*/g, tight ? "" : " ")
-      .trim();
+      .trim());
   }
 }
 
@@ -62,6 +73,10 @@ function generateCompressTag(tight: boolean = false): TemplateLiteralTag {
  * Parses the string and placeholders as normal, then removes any line breaks
  * and the spaces surrounding each line (ie, indentation), replacing each line
  * break with a single space. Empty lines are removed completely.
+ * 
+ * If you desire a linebreak to be present in the final result, you must provide
+ * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
+ * the result, you must include that as a tab character `\t`.
  * @example
  * let sampleText = "This is some sample text."
  * compress`
@@ -85,6 +100,10 @@ export const compress = generateCompressTag();
 /**
  * Parses the string and placeholders as normal, then removes any line breaks
  * and the spaces surrounding each line (ie, indentation).
+ * 
+ * If you desire a linebreak to be present in the final result, you must provide
+ * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
+ * the result, you must include that as a tab character `\t`.
  * @example
  * let sampleText = "This is some sample text."
  * compressTight`
@@ -109,6 +128,10 @@ export const compressTight = generateCompressTag(true);
  * Parses the string and placeholders as normal, then removes any line breaks
  * and the spaces surrounding each line (ie, indentation), replacing each line
  * break with a single space. Empty lines are removed completely.
+ * 
+ * If you desire a linebreak to be present in the final result, you must provide
+ * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
+ * the result, you must include that as a tab character `\t`.
  * @example
  * let sampleText = "This is some sample text."
  * c`
@@ -132,6 +155,10 @@ export const c = compress;
 /**
  * Parses the string and placeholders as normal, then removes any line breaks
  * and the spaces surrounding each line (ie, indentation).
+ * 
+ * If you desire a linebreak to be present in the final result, you must provide
+ * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
+ * the result, you must include that as a tab character `\t`.
  * @example
  * let sampleText = "This is some sample text."
  * t`
