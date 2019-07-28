@@ -18,8 +18,16 @@ steps:
 - script:
     npm i
     npm i -D
-  displayName: 'install dependencies'
+  displayName: 'Install dependencies'
+
+- script:
+    npm run build
+  displayName: 'Build TypeScript'
+
+- script:
+    npm run lint
+  displayName: 'Check code quality'
 
 - script:
     npm test
-  displayName: 'run tests'
+  displayName: 'Run tests'
