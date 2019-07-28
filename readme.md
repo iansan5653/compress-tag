@@ -94,3 +94,27 @@ let E = c`This has\n a new line`.
 // => This has
 // a new line.
 ```
+
+## Contributing
+
+Found a bug or want to see a feature added?
+[Submit it here!](https://github.com/iansan5653/compress-tag/issues)
+
+Pull requests are always welcome, although to increase your chances of your
+contribution being accepted, opening an issue and linking to it is always a
+good idea.
+
+### How to Contribute
+In order to contribute to this project, first clone the repository and navigate
+to it:
+```bash
+git clone https://github.com/iansan5653/compress-tag.git
+cd compress-tag
+```
+
+Then install dependencies (requires Node.js to be installed):
+```
+npm i -D
+```
+
+To modify code, edit the corresponding files in 

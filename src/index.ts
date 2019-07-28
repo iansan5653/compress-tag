@@ -1,5 +1,5 @@
 /**
- * @fileoverview **compress-tag** | Template literal tag to remove excess
+ * @file **compress-tag** | Template literal tag to remove excess
  * whitespace and newlines from strings.
  * @author Ian Sanders
  * @copyright 2019 Ian Sanders
@@ -69,7 +69,7 @@ const escapeCharacters = new Map<string, string>([
 function deescape(raw: string): string {
   return raw.replace(
     /\\(?:[rnt0v'"bf]|\\)/g,
-    (v) => escapeCharacters.get(v) || v
+    (v): string => escapeCharacters.get(v) || v
   );
 }
 
@@ -86,10 +86,10 @@ function deescape(raw: string): string {
  * @returns A template literal tag.
  */
 function generateCompressTag(tight: boolean = false): TemplateLiteralTag {
-  return function(strings, ...placeholders) {
+  return function(strings, ...placeholders): string {
     return deescape(
       merge(Array.from(strings.raw), placeholders)
-        .reduce((result, element) => result + element, "")
+        .reduce((result, element): string => result + element, "")
         .replace(/\s*[\r\n]+\s*/g, tight ? "" : " ")
         .trim()
     );

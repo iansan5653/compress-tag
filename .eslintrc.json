@@ -2,12 +2,14 @@
   "env": {
     "browser": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "mocha": true
   },
   "extends": [
     "eslint:recommended",
     "google",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:mocha/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -47,6 +49,7 @@
     "@typescript-eslint/prefer-for-of": "error",
     "@typescript-eslint/no-parameter-properties": "off",
     "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/array-type": ["error", "array-simple"],
     //: Off because sometimes using any makes sense; ie: `(...args: any[]) -> any`
     "@typescript-eslint/no-explicit-any": "off",
     "max-len": [
@@ -64,5 +67,5 @@
     ]
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["jsdoc"]
+  "plugins": ["jsdoc", "mocha"]
 }
