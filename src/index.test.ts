@@ -12,51 +12,50 @@ context("Primary Tag Behavior", function() {
   context("#compress", function() {
     describe("properly resolves template literals", function() {
       it("should not modify single word strings", function() {
-        assert.strictEqual(`test`, compress`test`);
+        assert.strictEqual(compress`test`, `test`);
       });
 
       it("should not modify single line strings", function() {
-        assert.strictEqual(`this IS a tEst`, compress`this IS a tEst`);
+        assert.strictEqual(compress`this IS a tEst`, `this IS a tEst`);
       });
 
       it("should handle string placeholders properly", function() {
         assert.strictEqual(
-          `this ${"is"} a ${"test with"} some ${""} strings`,
-          compress`this ${"is"} a ${"test with"} some ${""} strings`
+          compress`this ${"is"} a ${"test with"} some ${""} strings`,
+          `this ${"is"} a ${"test with"} some ${""} strings`
         );
 
         assert.strictEqual(
-          `this has ${""}empty ${""} strings`,
-          compress`this has ${""}empty ${""} strings`
+          compress`this has ${""}empty ${""} strings`,
+          `this has ${""}empty ${""} strings`
         );
       });
 
       it("should handle numeric placeholders properly", function() {
-        assert.strictEqual(`${1} | ${2} | ${0}`, compress`${1} | ${2} | ${0}`);
-        assert.strictEqual(`${NaN}`, compress`${NaN}`, "NaN placeholder");
+        assert.strictEqual(compress`${1} | ${2} | ${0}`, `${1} | ${2} | ${0}`);
+        assert.strictEqual(compress`${NaN}`, `${NaN}`);
         assert.strictEqual(
-          `${Infinity}`,
           compress`${Infinity}`,
-          "Infinity placeholder"
+          `${Infinity}`
         );
       });
 
       it("should handle expression placeholders properly", function() {
-        assert.strictEqual(`${1 + 456}`, compress`${1 + 456}`);
-        assert.strictEqual(`${Math.sqrt(2)}`, compress`${Math.sqrt(2)}`);
+        assert.strictEqual(compress`${1 + 456}`, `${1 + 456}`);
+        assert.strictEqual(compress`${Math.sqrt(2)}`, `${Math.sqrt(2)}`);
       });
 
       it("should handle undefined placeholder properly", function() {
-        assert.strictEqual(`${undefined}`, compress`${undefined}`);
+        assert.strictEqual(compress`${undefined}`, `${undefined}`);
       });
 
       it("should handle null placeholder properly", function() {
-        assert.strictEqual(`${null}`, compress`${null}`);
+        assert.strictEqual(compress`${null}`, `${null}`);
       });
 
       it("should handle object placeholder properly", function() {
         const obj = {x: 56};
-        assert.strictEqual(`${obj}`, compress`${obj}`);
+        assert.strictEqual(compress`${obj}`, `${obj}`);
       });
 
       it("should correctly process all known escape sequences", function() {
@@ -180,50 +179,50 @@ context("Primary Tag Behavior", function() {
   context("#compressTight", function() {
     describe("properly resolves template literals", function() {
       it("should not modify single word strings", function() {
-        assert.strictEqual(`test`, compressTight`test`);
+        assert.strictEqual(compressTight`test`, `test`);
       });
 
       it("should not modify single line strings", function() {
-        assert.strictEqual(`this IS a tEst`, compressTight`this IS a tEst`);
+        assert.strictEqual(compressTight`this IS a tEst`, `this IS a tEst`);
       });
 
       it("should handle string placeholders properly", function() {
         assert.strictEqual(
-          `this ${"is"} a ${"test with"} some ${""} strings`,
-          compressTight`this ${"is"} a ${"test with"} some ${""} strings`
+          compressTight`this ${"is"} a ${"test with"} some ${""} strings`,
+          `this ${"is"} a ${"test with"} some ${""} strings`
         );
 
         assert.strictEqual(
-          `this has ${""}empty ${""} strings`,
-          compressTight`this has ${""}empty ${""} strings`
+          compressTight`this has ${""}empty ${""} strings`,
+          `this has ${""}empty ${""} strings`
         );
       });
 
       it("should handle numeric placeholders properly", function() {
         assert.strictEqual(
-          `${1} | ${2} | ${0}`,
-          compressTight`${1} | ${2} | ${0}`
+          compressTight`${1} | ${2} | ${0}`,
+          `${1} | ${2} | ${0}`
         );
-        assert.strictEqual(`${NaN}`, compressTight`${NaN}`, "NaN placeholder");
-        assert.strictEqual(`${Infinity}`, compressTight`${Infinity}`);
+        assert.strictEqual(compressTight`${NaN}`, `${NaN}`);
+        assert.strictEqual(compressTight`${Infinity}`, `${Infinity}`);
       });
 
       it("should handle expression placeholders properly", function() {
-        assert.strictEqual(`${1 + 456}`, compressTight`${1 + 456}`);
-        assert.strictEqual(`${Math.sqrt(2)}`, compressTight`${Math.sqrt(2)}`);
+        assert.strictEqual(compressTight`${1 + 456}`, `${1 + 456}`);
+        assert.strictEqual(compressTight`${Math.sqrt(2)}`, `${Math.sqrt(2)}`);
       });
 
       it("should handle undefined placeholder properly", function() {
-        assert.strictEqual(`${undefined}`, compressTight`${undefined}`);
+        assert.strictEqual(compressTight`${undefined}`, `${undefined}`);
       });
 
       it("should handle null placeholder properly", function() {
-        assert.strictEqual(`${null}`, compressTight`${null}`);
+        assert.strictEqual(compressTight`${null}`, `${null}`);
       });
 
       it("should handle object placeholder properly", function() {
         const obj = {x: 56};
-        assert.strictEqual(`${obj}`, compressTight`${obj}`);
+        assert.strictEqual(compressTight`${obj}`, `${obj}`);
       });
 
       it("should correctly process all known escape sequences", function() {
