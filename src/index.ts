@@ -35,24 +35,50 @@ function merge<A extends any[], B extends any[]>(
 ): Array<A[number] | B[number]> {
   const result = [];
   for (let i = 0; i < Math.max(a.length, b.length); i++) {
-    if(i in a) result.push(a[i]);
-    if(i in b) result.push(b[i]);
-  };
+    if (i in a) result.push(a[i]);
+    if (i in b) result.push(b[i]);
+  }
   return result;
 }
 
+
+/**
+ * Map of raw escape strings to the characters they represent.
+ */
+const escapeCharacters = new Map<string, string>([
+  ["\\r", "\r"],
+  ["\\n", "\n"],
+  ["\\t", "\t"],
+  ["\\0", "\0"],
+  ["\\v", "\v"],
+  ["\\'", "'"],
+  ['\\"', '"'],
+  ["\\b", "\b"],
+  ["\\f", "\f"],
+  ["\\\\", "\\"]
+]);
+
+/**
+ * Replace raw escape character strings with their escape characters.
+ * @param raw A string where escape characters are represented as raw string
+ * values like `\t` rather than `     `.
+ * @returns The processed string, with escape characters replaced.
+ * @example
+ * deescape("\\n");
+ * // => "\n"
+ */
 function deescape(raw: string): string {
-  return raw.replace("\\n", "\n").replace("\\r", "\r").replace("\\t", "\t")
-    .replace("\\\"", "\"").replace("\\\'", "\'").replace("\\b", "\b")
-    .replace("\\f", "\f").replace("\\v", "\v").replace("\\0", "\0")
-    .replace("\\\\", "\\");
+  return raw.replace(
+    /\\(?:[rnt0v'"bf]|\\)/g,
+    (v) => escapeCharacters.get(v) || v
+  );
 }
 
 /**
  * Generate a template literal tag that compresses (AKA minifies) a template
  * string. In this context, compress is defined as removing line breaks and
  * trailing / leading spaces from each line.
- * 
+ *
  * If you desire a linebreak to be present in the final result, you must provide
  * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
  * the result, you must include that as a tab character `\t`.
@@ -62,18 +88,20 @@ function deescape(raw: string): string {
  */
 function generateCompressTag(tight: boolean = false): TemplateLiteralTag {
   return function(strings, ...placeholders) {
-    return deescape(merge(Array.from(strings.raw), placeholders)
-      .reduce((result, element) => result + element, "")
-      .replace(/\s*[\r\n]+\s*/g, tight ? "" : " ")
-      .trim());
-  }
+    return deescape(
+      merge(Array.from(strings.raw), placeholders)
+        .reduce((result, element) => result + element, "")
+        .replace(/\s*[\r\n]+\s*/g, tight ? "" : " ")
+        .trim()
+    );
+  };
 }
 
 /**
  * Parses the string and placeholders as normal, then removes any line breaks
  * and the spaces surrounding each line (ie, indentation), replacing each line
  * break with a single space. Empty lines are removed completely.
- * 
+ *
  * If you desire a linebreak to be present in the final result, you must provide
  * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
  * the result, you must include that as a tab character `\t`.
@@ -100,7 +128,7 @@ export const compress = generateCompressTag();
 /**
  * Parses the string and placeholders as normal, then removes any line breaks
  * and the spaces surrounding each line (ie, indentation).
- * 
+ *
  * If you desire a linebreak to be present in the final result, you must provide
  * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
  * the result, you must include that as a tab character `\t`.
@@ -128,7 +156,7 @@ export const compressTight = generateCompressTag(true);
  * Parses the string and placeholders as normal, then removes any line breaks
  * and the spaces surrounding each line (ie, indentation), replacing each line
  * break with a single space. Empty lines are removed completely.
- * 
+ *
  * If you desire a linebreak to be present in the final result, you must provide
  * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
  * the result, you must include that as a tab character `\t`.
@@ -155,7 +183,7 @@ export const c = compress;
 /**
  * Parses the string and placeholders as normal, then removes any line breaks
  * and the spaces surrounding each line (ie, indentation).
- * 
+ *
  * If you desire a linebreak to be present in the final result, you must provide
  * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
  * the result, you must include that as a tab character `\t`.
