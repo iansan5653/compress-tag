@@ -41,7 +41,6 @@ function merge<A extends any[], B extends any[]>(
   return result;
 }
 
-
 /**
  * Map of raw escape strings to the characters they represent.
  */
