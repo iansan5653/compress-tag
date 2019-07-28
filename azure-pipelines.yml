@@ -16,5 +16,10 @@ steps:
   displayName: 'Install Node.js'
 
 - script:
+    npm i
+    npm i -D
+  displayName: 'install dependencies'
+
+- script:
     npm test
   displayName: 'run tests'
