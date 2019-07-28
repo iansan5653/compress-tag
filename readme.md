@@ -1,9 +1,12 @@
 # compress-tag
 
+[![Build Status](https://dev.azure.com/iansan5653/compress-tag/_apis/build/status/iansan5653.compress-tag?branchName=master)](https://dev.azure.com/iansan5653/compress-tag/_build/latest?definitionId=2&branchName=master) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[Test Results](https://dev.azure.com/iansan5653/compress-tag/_build/results?buildId=14&view=ms.vss-test-web.build-test-results-tab)
+
 `compress-tag` is a tiny module that enables significantly more readable code by
 improving the display of
 [string template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
-in your code.
+in your source.
 
 This module provides a template literal tag that removes line breaks and indents
 from your template literals, so that a string that is formatted to nicely fit in
