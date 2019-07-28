@@ -58,6 +58,12 @@ context("Primary Tag Behavior", function() {
         const obj = {x: 56};
         assert.strictEqual(`${obj}`, compress`${obj}`);
       });
+
+      it("should correctly process all known escape sequences", function() {
+        assert.strictEqual(
+          compress`\r\t\n\0\v\f\b\\\'\"`, `\r\t\n\0\v\f\b\\\'\"`
+        )
+      });
     });
 
     describe("removes all newlines and replaces with a space", function() {
@@ -218,6 +224,12 @@ context("Primary Tag Behavior", function() {
       it("should handle object placeholder properly", function() {
         const obj = {x: 56};
         assert.strictEqual(`${obj}`, compressTight`${obj}`);
+      });
+
+      it("should correctly process all known escape sequences", function() {
+        assert.strictEqual(
+          compress`\r\t\n\0\v\f\b\\\'\"`, `\r\t\n\0\v\f\b\\\'\"`
+        )
       });
     });
 
