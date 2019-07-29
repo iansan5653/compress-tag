@@ -363,23 +363,23 @@ context("compress-tag", function(): void {
         it("should not modify single word strings", function(): void {
           assert.strictEqual(compress(`test`), `test`);
         });
-  
+
         it("should not modify single line strings", function(): void {
           assert.strictEqual(compress(`this IS a tEst`), `this IS a tEst`);
         });
-  
+
         it("should handle string placeholders properly", function(): void {
           assert.strictEqual(
             compress(`this ${"is"} a ${"test with"} some ${""} strings`),
             `this ${"is"} a ${"test with"} some ${""} strings`
           );
-  
+
           assert.strictEqual(
             compress(`this has ${""}empty ${""} strings`),
             `this has ${""}empty ${""} strings`
           );
         });
-  
+
         it("should handle numeric placeholders properly", function(): void {
           assert.strictEqual(
             compress(`${1} | ${2} | ${0}`),
@@ -388,25 +388,25 @@ context("compress-tag", function(): void {
           assert.strictEqual(compress(`${NaN}`), `${NaN}`);
           assert.strictEqual(compress(`${Infinity}`), `${Infinity}`);
         });
-  
+
         it("should handle expression placeholders properly", function(): void {
           assert.strictEqual(compress(`${1 + 456}`), `${1 + 456}`);
           assert.strictEqual(compress(`${Math.sqrt(2)}`), `${Math.sqrt(2)}`);
         });
-  
+
         it("should handle undefined placeholder properly", function(): void {
           assert.strictEqual(compress(`${undefined}`), `${undefined}`);
         });
-  
+
         it("should handle null placeholder properly", function(): void {
           assert.strictEqual(compress(`${null}`), `${null}`);
         });
-  
+
         it("should handle object placeholder properly", function(): void {
           const obj = {x: 56};
           assert.strictEqual(compress(`${obj}`), `${obj}`);
         });
-  
+
         it("should correctly process all known escape sequences", function(): void {
           assert.strictEqual(
             compress(`\\r\\t\\n\\0\\v\\f\\b\\\\'\\"`),
@@ -414,7 +414,7 @@ context("compress-tag", function(): void {
           );
         });
       });
-  
+
       describe("removes all newlines and replaces with a space", function(): void {
         it("should remove format newlines", function(): void {
           assert.strictEqual(
@@ -423,21 +423,21 @@ context("compress-tag", function(): void {
             "this has a new line"
           );
         });
-  
+
         it("should not remove manual CRLF newlines", function(): void {
           assert.strictEqual(
             compress(`this has \\r\\n a new line`),
             "this has \r\n a new line"
           );
         });
-  
+
         it("should not remove manual LF newlines", function(): void {
           assert.strictEqual(
             compress(`this has \\n a new line`),
             "this has \n a new line"
           );
         });
-  
+
         it("should remove consecutive newlines without inserting multiple spaces", function(): void {
           assert.strictEqual(
             compress(`this has
@@ -449,15 +449,15 @@ context("compress-tag", function(): void {
             "this has several new lines"
           );
         });
-  
+
         it("should remove leading newlines without leaving leading spaces", function(): void {
           assert.strictEqual(
-            (compress`
-  this has a leading new line`),
+            compress`
+  this has a leading new line`,
             "this has a leading new line"
           );
         });
-  
+
         it("should remove trailing newlines without leaving trailing spaces", function(): void {
           assert.strictEqual(
             compress(`this has a trailing new line
@@ -465,7 +465,7 @@ context("compress-tag", function(): void {
             "this has a trailing new line"
           );
         });
-  
+
         it("should remove multiple non-connected newlines", function(): void {
           assert.strictEqual(
             compress(`this
@@ -476,7 +476,7 @@ context("compress-tag", function(): void {
           );
         });
       });
-  
+
       describe("removes whitespace from around individual lines", function(): void {
         it("should remove leading spaces from lines", function(): void {
           assert.strictEqual(
@@ -487,7 +487,7 @@ context("compress-tag", function(): void {
             "this has indented lines with leading spaces"
           );
         });
-  
+
         it("should remove trailing spaces from lines", function(): void {
           assert.strictEqual(
             compress(`this has 
@@ -497,7 +497,7 @@ context("compress-tag", function(): void {
             "this has lines with trailing spaces"
           );
         });
-  
+
         it("should remove tabs from lines", function(): void {
           /* eslint-disable no-tabs */
           assert.strictEqual(
@@ -508,7 +508,7 @@ context("compress-tag", function(): void {
           );
           /* eslint-enable no-tabs */
         });
-  
+
         it("should not affect internal whitespace", function(): void {
           /* eslint-disable no-tabs */
           assert.strictEqual(
@@ -519,7 +519,7 @@ context("compress-tag", function(): void {
           );
           /* eslint-enable no-tabs */
         });
-  
+
         it("should not affect manual tabs", function(): void {
           assert.strictEqual(
             compress(`this has 
@@ -529,29 +529,29 @@ context("compress-tag", function(): void {
         });
       });
     });
-  
+
     context("#compressTight", function(): void {
       describe("properly resolves template literals", function(): void {
         it("should not modify single word strings", function(): void {
           assert.strictEqual(compressTight(`test`), `test`);
         });
-  
+
         it("should not modify single line strings", function(): void {
           assert.strictEqual(compressTight(`this IS a tEst`), `this IS a tEst`);
         });
-  
+
         it("should handle string placeholders properly", function(): void {
           assert.strictEqual(
             compressTight(`this ${"is"} a ${"test with"} some ${""} strings`),
             `this ${"is"} a ${"test with"} some ${""} strings`
           );
-  
+
           assert.strictEqual(
             compressTight(`this has ${""}empty ${""} strings`),
             `this has ${""}empty ${""} strings`
           );
         });
-  
+
         it("should handle numeric placeholders properly", function(): void {
           assert.strictEqual(
             compressTight(`${1} | ${2} | ${0}`),
@@ -560,33 +560,36 @@ context("compress-tag", function(): void {
           assert.strictEqual(compressTight(`${NaN}`), `${NaN}`);
           assert.strictEqual(compressTight(`${Infinity}`), `${Infinity}`);
         });
-  
+
         it("should handle expression placeholders properly", function(): void {
           assert.strictEqual(compressTight(`${1 + 456}`), `${1 + 456}`);
-          assert.strictEqual(compressTight(`${Math.sqrt(2)}`), `${Math.sqrt(2)}`);
+          assert.strictEqual(
+            compressTight(`${Math.sqrt(2)}`),
+            `${Math.sqrt(2)}`
+          );
         });
-  
+
         it("should handle undefined placeholder properly", function(): void {
           assert.strictEqual(compressTight(`${undefined}`), `${undefined}`);
         });
-  
+
         it("should handle null placeholder properly", function(): void {
           assert.strictEqual(compressTight(`${null}`), `${null}`);
         });
-  
+
         it("should handle object placeholder properly", function(): void {
           const obj = {x: 56};
           assert.strictEqual(compressTight(`${obj}`), `${obj}`);
         });
-  
+
         it("should correctly process all known escape sequences", function(): void {
           assert.strictEqual(
-            (compressTight(`\\r\\t\\n\\0\\v\\f\\b\\\\'\\"`)),
+            compressTight(`\\r\\t\\n\\0\\v\\f\\b\\\\'\\"`),
             `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
           );
         });
       });
-  
+
       describe("removes all newlines and does not replace with a space", function(): void {
         it("should remove format newlines", function(): void {
           assert.strictEqual(
@@ -595,21 +598,21 @@ context("compress-tag", function(): void {
             "this hasa new line"
           );
         });
-  
+
         it("should not remove manual CRLF newlines", function(): void {
           assert.strictEqual(
             compressTight(`this has \\r\\n a new line`),
             "this has \r\n a new line"
           );
         });
-  
+
         it("should not remove manual LF newlines", function(): void {
           assert.strictEqual(
             compressTight(`this has \\n a new line`),
             "this has \n a new line"
           );
         });
-  
+
         it("should remove consecutive newlines without inserting multiple spaces", function(): void {
           assert.strictEqual(
             compressTight(`this has
@@ -621,15 +624,15 @@ context("compress-tag", function(): void {
             "this hasseveral new lines"
           );
         });
-  
+
         it("should remove leading newlines without leaving leading spaces", function(): void {
           assert.strictEqual(
-            (compressTight`
-  this has a leading new line`),
+            compressTight`
+  this has a leading new line`,
             "this has a leading new line"
           );
         });
-  
+
         it("should remove trailing newlines without leaving trailing spaces", function(): void {
           assert.strictEqual(
             compressTight(`this has a trailing new line
@@ -637,7 +640,7 @@ context("compress-tag", function(): void {
             "this has a trailing new line"
           );
         });
-  
+
         it("should remove multiple non-connected newlines", function(): void {
           assert.strictEqual(
             compressTight(`this
@@ -648,7 +651,7 @@ context("compress-tag", function(): void {
           );
         });
       });
-  
+
       describe("removes whitespace from around individual lines", function(): void {
         it("should remove leading spaces from lines", function(): void {
           assert.strictEqual(
@@ -659,7 +662,7 @@ context("compress-tag", function(): void {
             "this hasindented lineswith leadingspaces"
           );
         });
-  
+
         it("should remove trailing spaces from lines", function(): void {
           assert.strictEqual(
             compressTight(`this has 
@@ -669,7 +672,7 @@ context("compress-tag", function(): void {
             "this haslineswith trailingspaces"
           );
         });
-  
+
         it("should remove tabs from lines", function(): void {
           /* eslint-disable no-tabs */
           assert.strictEqual(
@@ -680,7 +683,7 @@ context("compress-tag", function(): void {
           );
           /* eslint-enable no-tabs */
         });
-  
+
         it("should not affect internal whitespace", function(): void {
           /* eslint-disable no-tabs */
           assert.strictEqual(
@@ -691,7 +694,7 @@ context("compress-tag", function(): void {
           );
           /* eslint-enable no-tabs */
         });
-  
+
         it("should not affect manual tabs", function(): void {
           assert.strictEqual(
             compressTight(`this has 

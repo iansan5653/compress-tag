@@ -74,10 +74,6 @@ function deescape(raw: string): string {
   );
 }
 
-function replaceBreaksAndTrim(text: string, tight: boolean) {
-  return text.replace(/\s*[\r\n]+\s*/g, tight ? "" : " ").trim();
-}
-
 /**
  * Generate a template literal tag that compresses (AKA minifies) a template
  * string. In this context, compress is defined as removing line breaks and
@@ -101,7 +97,10 @@ function generateCompressTag(
             Array.from((stringOrStrings as TemplateStringsArray).raw),
             placeholders
           ).reduce((result, element): string => result + element, "");
-    return deescape(replaceBreaksAndTrim(combined, tight));
+
+    return deescape(
+      combined.replace(/\s*[\r\n]+\s*/g, tight ? "" : " ").trim()
+    );
   };
 }
 
