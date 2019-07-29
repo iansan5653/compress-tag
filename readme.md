@@ -98,16 +98,16 @@ You can still output a string that has linebreaks in it simply by using the
 newline character instead of an actual linebreak. For example:
 
 ```js
-let E = c`This has\n a new line`;
+let E = c`This has\n\ta new line`;
 // => This has
-// a new line.
+//     a new line.
 ```
 
 ### Chaining
 One drawback to using template literal tags is that they cannot be chained. This
 means that if you are already using template literal tags, you can't use these
-as described above. All of these tags, however, do support being used as normal
-functions in this case:
+as described above. All of these tags support being used as normal functions in
+this case\*:
 
 ```js
 // Assuming `capitalize` is some other tag that makes every letter uppercase:
@@ -116,6 +116,18 @@ let F = c(capitalize`
   dolor sit amet.
 `);
 // => LOREM IPSUM DOLOR SIT AMET.
+```
+
+\* **Note**: A side effect of using the tags as a method is that if you want to
+preserve linebreaks or tabs, you must add them as `\\n` or `\\t` instead of
+`\n` or `\t` as described [above](#preserving-some-linebreaks). A PR to fix this
+would be welcomed.
+
+Example (note the lack of linebreak between *dolor* and *sit*):
+```js
+let F = c(capitalize`Lorem ipsum \\n dolor \n sit amet.`);
+// => LOREM IPSUM
+//DOLOR SIT AMET.
 ```
 
 ## Contributing

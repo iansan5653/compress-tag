@@ -409,7 +409,7 @@ context("compress-tag", function(): void {
   
         it("should correctly process all known escape sequences", function(): void {
           assert.strictEqual(
-            compress(`\r\t\n\0\v\f\b\\\'\"`),
+            compress(`\\r\\t\\n\\0\\v\\f\\b\\\\'\\"`),
             `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
           );
         });
@@ -426,14 +426,14 @@ context("compress-tag", function(): void {
   
         it("should not remove manual CRLF newlines", function(): void {
           assert.strictEqual(
-            compress(`this has \r\n a new line`),
+            compress(`this has \\r\\n a new line`),
             "this has \r\n a new line"
           );
         });
   
         it("should not remove manual LF newlines", function(): void {
           assert.strictEqual(
-            compress(`this has \n a new line`),
+            compress(`this has \\n a new line`),
             "this has \n a new line"
           );
         });
@@ -523,7 +523,7 @@ context("compress-tag", function(): void {
         it("should not affect manual tabs", function(): void {
           assert.strictEqual(
             compress(`this has 
-          \ta manual tab`),
+          \\ta manual tab`),
             "this has \ta manual tab"
           );
         });
@@ -581,7 +581,7 @@ context("compress-tag", function(): void {
   
         it("should correctly process all known escape sequences", function(): void {
           assert.strictEqual(
-            (compressTight(`\r\t\n\0\v\f\b\\\'\"`)),
+            (compressTight(`\\r\\t\\n\\0\\v\\f\\b\\\\'\\"`)),
             `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
           );
         });
@@ -598,14 +598,14 @@ context("compress-tag", function(): void {
   
         it("should not remove manual CRLF newlines", function(): void {
           assert.strictEqual(
-            compressTight(`this has \r\n a new line`),
+            compressTight(`this has \\r\\n a new line`),
             "this has \r\n a new line"
           );
         });
   
         it("should not remove manual LF newlines", function(): void {
           assert.strictEqual(
-            compressTight(`this has \n a new line`),
+            compressTight(`this has \\n a new line`),
             "this has \n a new line"
           );
         });
@@ -695,7 +695,7 @@ context("compress-tag", function(): void {
         it("should not affect manual tabs", function(): void {
           assert.strictEqual(
             compressTight(`this has 
-          \ta manual tab`),
+          \\ta manual tab`),
             "this has\ta manual tab"
           );
         });

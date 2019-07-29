@@ -94,14 +94,13 @@ function generateCompressTag(
   tight: boolean = false
 ): ChainableTemplateLiteralTag {
   return function(stringOrStrings, ...placeholders): string {
-    if (typeof stringOrStrings === "string") {
-      return replaceBreaksAndTrim(stringOrStrings, tight);
-    }
-
-    const combined = merge(
-      Array.from((stringOrStrings as TemplateStringsArray).raw),
-      placeholders
-    ).reduce((result, element): string => result + element, "");
+    const combined =
+      typeof stringOrStrings === "string"
+        ? stringOrStrings
+        : merge(
+            Array.from((stringOrStrings as TemplateStringsArray).raw),
+            placeholders
+          ).reduce((result, element): string => result + element, "");
     return deescape(replaceBreaksAndTrim(combined, tight));
   };
 }
@@ -110,7 +109,7 @@ function generateCompressTag(
  * Parses the string and placeholders as normal, then removes any line breaks
  * and the spaces surrounding each line (ie, indentation), replacing each line
  * break with a single space. Empty lines are removed completely.
- * 
+ *
  * Can be used either as a template literal tag or as a function that accepts
  * a string. This section option is used when the template literal already must
  * be tagged with some other tag.
@@ -149,7 +148,7 @@ export const compress = generateCompressTag();
 /**
  * Parses the string and placeholders as normal, then removes any line breaks
  * and the spaces surrounding each line (ie, indentation).
- * 
+ *
  * Can be used either as a template literal tag or as a function that accepts
  * a string. This section option is used when the template literal already must
  * be tagged with some other tag.
@@ -189,7 +188,7 @@ export const compressTight = generateCompressTag(true);
  * Parses the string and placeholders as normal, then removes any line breaks
  * and the spaces surrounding each line (ie, indentation), replacing each line
  * break with a single space. Empty lines are removed completely.
- * 
+ *
  * Can be used either as a template literal tag or as a function that accepts
  * a string. This section option is used when the template literal already must
  * be tagged with some other tag.
@@ -228,7 +227,7 @@ export const c = compress;
 /**
  * Parses the string and placeholders as normal, then removes any line breaks
  * and the spaces surrounding each line (ie, indentation).
- * 
+ *
  * Can be used either as a template literal tag or as a function that accepts
  * a string. This section option is used when the template literal already must
  * be tagged with some other tag.
