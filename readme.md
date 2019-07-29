@@ -102,6 +102,27 @@ let E = c`This has\n a new line`;
 // a new line.
 ```
 
+### ESLint
+Since there is now no reason for your strings to be long, you can modify your
+ESLint `max-len` setting to enforce the use of these tags:
+
+*eslintrc.json*
+```json
+{
+  "rules": {
+    "max-len": [
+      "error",
+      {
+        "code": 80,
+        "ignoreUrls": true,
+        "ignoreStrings": false,
+        "ignoreTemplateLiterals": false,
+      }
+    ]
+  }
+}
+```
+
 ## Contributing
 
 Found a bug or want to see a feature added?
