@@ -34,6 +34,6 @@ steps:
 
 - task: PublishTestResults@2
   inputs:
-    testResultsFormat: 'xUnit'
+    testResultsFormat: 'jUnit'
     testResultsFiles: 'test_results.xml'
   displayName: 'Publish Test Results'
