@@ -8,8 +8,10 @@
   "scripts": {
     "build": "tsc",
     "test": "ts-mocha src/index.test.ts",
+    "testForCI": "ts-mocha src/index.test.ts --reporter=xunit --reporter-options output=test_results.xml",
     "lint": "eslint src/index.ts & eslint src/index.test.ts",
-    "prepublishOnly": "npm run lint & npm run test & npm run build"
+    "check": "npm run lint & npm run test & npm run build",
+    "prepublishOnly": "npm run check"
   },
   "author": {
     "name": "Ian Sanders",

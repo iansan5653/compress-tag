@@ -107,6 +107,14 @@ Pull requests are always welcome, although to increase your chances of your
 contribution being accepted, opening an issue and linking to it is always a
 good idea.
 
+Pull requests will not be merged unless the Azure Pipelines build succeeds. To
+quickly confirm that it will, just run:
+```bash
+npm run check
+```
+This checks your formatting, tests, and for TypeScript compiler errors. If the
+task doesn't fail, you should be good to go.
+
 ### How to Contribute
 In order to contribute to this project, first clone the repository and navigate
 to it:
