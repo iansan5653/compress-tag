@@ -10,7 +10,7 @@
     "test": "ts-mocha src/**/*.test.ts",
     "testWithCoverage": "npm run build && nyc --reporter=text mocha src/**/*.test.ts --require ts-node/register --require source-map-support/register",
     "testForCheck": "nyc --reporter=text-summary mocha src/index.test.ts --reporter=progress",
-    "testForCI": "nyc --reporter=cobertura mocha src/index.test.ts --reporter=mocha-junit-reporter --reporter-options mochaFile=test-results.xml",
+    "testForCI": "nyc --reporter=cobertura --reporter=html mocha src/index.test.ts --reporter=mocha-junit-reporter --reporter-options mochaFile=test-results.xml",
     "lint": "eslint src/**/*.ts",
     "check": "npm run build && npm run testForCheck && npm run lint",
     "ensureCleanTree": "echo 'Checking to ensure all changes are committed...' && git diff --quiet --exit-code & git diff --quiet --cached --exit-code",
