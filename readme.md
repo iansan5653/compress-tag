@@ -1,7 +1,8 @@
 # compress-tag
 
-[![Build Status](https://dev.azure.com/iansan5653/compress-tag/_apis/build/status/iansan5653.compress-tag?branchName=master)](https://dev.azure.com/iansan5653/compress-tag/_build/latest?definitionId=2&branchName=master) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[Test Results](https://dev.azure.com/iansan5653/compress-tag/_build/results?buildId=14&view=ms.vss-test-web.build-test-results-tab)
+[![Build Status](https://dev.azure.com/iansan5653/compress-tag/_apis/build/status/iansan5653.compress-tag?branchName=master)](https://dev.azure.com/iansan5653/compress-tag/_build/latest?definitionId=2&branchName=master)
+[![Azure DevOps tests](https://img.shields.io/azure-devops/tests/iansan5653/compress-tag/2?compact_message)](https://dev.azure.com/iansan5653/compress-tag/_build/results?buildId=14&view=ms.vss-test-web.build-test-results-tab)
+[![npm](https://img.shields.io/npm/v/compress-tag)](https://www.npmjs.com/package/compress-tag)
 
 `compress-tag` is a tiny module that enables significantly more readable code by
 improving the display of
