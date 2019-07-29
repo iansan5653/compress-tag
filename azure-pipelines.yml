@@ -35,5 +35,10 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'jUnit'
-    testResultsFiles: 'test_results.xml'
+    testResultsFiles: 'test-results.xml'
   displayName: 'Publish test results'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'cobertura'
+    summaryFileLocation: 'coverage/cobertura-coverage.xml'

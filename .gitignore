@@ -1,3 +1,6 @@
 dist
 node_modules
 test_results.xml
+test-results.xml
+.nyc_output
+coverage
