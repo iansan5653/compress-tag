@@ -1,8 +1,11 @@
 # compress-tag
 
 [![Build Status](https://dev.azure.com/iansan5653/compress-tag/_apis/build/status/iansan5653.compress-tag?branchName=master)](https://dev.azure.com/iansan5653/compress-tag/_build/latest?definitionId=2&branchName=master)
-[![Azure DevOps tests](https://img.shields.io/azure-devops/tests/iansan5653/compress-tag/2?compact_message)](https://dev.azure.com/iansan5653/compress-tag/_build/results?buildId=14&view=ms.vss-test-web.build-test-results-tab)
+[![Azure DevOps tests](https://img.shields.io/azure-devops/tests/iansan5653/compress-tag/2?compact_message)](https://dev.azure.com/iansan5653/compress-tag/_build/latest?definitionId=2&branchName=master)
+[![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/iansan5653/compress-tag/2)](https://dev.azure.com/iansan5653/compress-tag/_build/latest?definitionId=2&branchName=master)
 [![npm](https://img.shields.io/npm/v/compress-tag)](https://www.npmjs.com/package/compress-tag)
+[![David](https://img.shields.io/david/iansan5653/compress-tag)](https://www.npmjs.com/package/compress-tag?activeTab=dependencies)
+[![David](https://img.shields.io/david/dev/iansan5653/compress-tag)](https://www.npmjs.com/package/compress-tag?activeTab=dependencies)
 
 `compress-tag` is a tiny module that enables significantly more readable code by
 improving the display of
