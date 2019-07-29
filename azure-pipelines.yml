@@ -36,4 +36,4 @@ steps:
   inputs:
     testResultsFormat: 'jUnit'
     testResultsFiles: 'test_results.xml'
-  displayName: 'Publish Test Results'
+  displayName: 'Publish test results'

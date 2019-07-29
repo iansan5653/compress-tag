@@ -1,6 +1,6 @@
 {
   "name": "compress-tag",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Template literal tag to remove excess whitespace and newlines from strings.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,10 +8,13 @@
   "scripts": {
     "build": "tsc",
     "test": "ts-mocha src/index.test.ts",
+    "testForCheck": "ts-mocha src/index.test.ts --reporter=progress",
     "testForCI": "ts-mocha src/index.test.ts --reporter=mocha-junit-reporter --reporter-options mochaFile=test_results.xml",
     "lint": "eslint src/index.ts & eslint src/index.test.ts",
-    "check": "npm run lint & npm run test & npm run build",
-    "prepublishOnly": "npm run check"
+    "check": "npm run build & npm run testForCheck & npm run lint",
+    "ensureCleanTree": "echo 'Checking to ensure all changes are committed...' && git diff --quiet --exit-code & git diff --quiet --cached --exit-code",
+    "prepublishOnly": "npm run ensureCleanTree && npm run check",
+    "postpublish": "cross-var git tag $npm_package_version && git push v$npm_package_version"
   },
   "author": {
     "name": "Ian Sanders",
@@ -23,6 +26,7 @@
     "@types/node": "^12.6.8",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
+    "cross-var": "^1.1.0",
     "eslint": "^6.1.0",
     "eslint-config-google": "^0.13.0",
     "eslint-plugin-jsdoc": "^15.7.2",
