@@ -93,7 +93,7 @@ You can still output a string that has linebreaks in it simply by using the
 newline character instead of an actual linebreak. For example:
 
 ```js
-let E = c`This has\n a new line`.
+let E = c`This has\n a new line`;
 // => This has
 // a new line.
 ```
