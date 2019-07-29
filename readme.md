@@ -12,12 +12,13 @@ improving the display of
 [string template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 in your source.
 
-This module provides a template literal tag that removes line breaks and indents
+This module provides template literal tags that remove line breaks and indents
 from your template literals, so that a string that is formatted to nicely fit in
-your code still comes out looking like it should.
+your code still comes out looking like it should. They are also
+[chainable](#Chaining) in case you are already using template literal tags.
 
-This allows you to keep all lines of code within whatever limit you prefer
-without having to resort to hacks like adding each line of string to the
+This allows you to keep all lines of code within whatever length limit you
+prefer without having to resort to hacks like adding each line of string to the
 previous or escaping each linebreak.
 
 ```js
@@ -97,9 +98,36 @@ You can still output a string that has linebreaks in it simply by using the
 newline character instead of an actual linebreak. For example:
 
 ```js
-let E = c`This has\n a new line`;
+let E = c`This has\n\ta new line`;
 // => This has
-// a new line.
+//     a new line.
+```
+
+### Chaining
+One drawback to using template literal tags is that they cannot be chained. This
+means that if you are already using template literal tags, you can't use these
+as described above. All of these tags support being used as normal functions in
+this case\*:
+
+```js
+// Assuming `capitalize` is some other tag that makes every letter uppercase:
+let F = c(capitalize`
+  Lorem ipsum
+  dolor sit amet.
+`);
+// => LOREM IPSUM DOLOR SIT AMET.
+```
+
+\* **Note**: A side effect of using the tags as a method is that if you want to
+preserve linebreaks or tabs, you must add them as `\\n` or `\\t` instead of
+`\n` or `\t` as described [above](#preserving-some-linebreaks). A PR to fix this
+would be welcomed.
+
+Example (note the lack of linebreak between *dolor* and *sit*):
+```js
+let F = c(capitalize`Lorem ipsum \\n dolor \n sit amet.`);
+// => LOREM IPSUM
+//DOLOR SIT AMET.
 ```
 
 ### ESLint
