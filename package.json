@@ -7,6 +7,7 @@
   "repository": "https://github.com/iansan5653/compress-tag",
   "scripts": {
     "build": "tsc",
+    "minify": "node-minify --compressor uglify-es --input dist/index.js --output dist/index.min.js",
     "test": "ts-mocha src/**/*.test.ts",
     "testWithCoverage": "npm run build && nyc --reporter=text mocha src/**/*.test.ts --require ts-node/register --require source-map-support/register",
     "testForCheck": "nyc --reporter=text-summary mocha src/index.test.ts --reporter=progress",
@@ -14,7 +15,7 @@
     "lint": "eslint src/**/*.ts",
     "check": "npm run build && npm run testForCheck && npm run lint",
     "ensureCleanTree": "echo 'Checking to ensure all changes are committed...' && git diff --quiet --exit-code & git diff --quiet --cached --exit-code",
-    "prepublishOnly": "npm run ensureCleanTree && npm run check",
+    "prepublishOnly": "npm run ensureCleanTree && npm run minify && npm run check",
     "postpublish": "cross-var git tag -a $npm_package_version -m \"See changelog.md for release notes.\" && git push --tags && cross-var git tag -d $npm_package_version",
     "format": "prettier src/**/*.test.ts"
   },
@@ -24,6 +25,9 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@node-minify/cli": "^4.1.2",
+    "@node-minify/core": "^4.1.2",
+    "@node-minify/uglify-es": "^4.1.2",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.6.8",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
