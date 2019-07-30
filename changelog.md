@@ -2,7 +2,11 @@
 
 All notable outward-facing changes will be documented in this file.
 
-## [Unreleased]
+## 1.1.4 [Unreleased]
+
+- Don't package test files in NPM module
+
+## 1.1.3
 
 - Package a minified `index.min.js` for web / unpkg use
 
