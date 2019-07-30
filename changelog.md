@@ -4,6 +4,10 @@ All notable outward-facing changes will be documented in this file.
 
 <!--## [Unreleased]-->
 
+## 1.1.2
+
+- Add a changelog for release notes
+
 ## 1.1.1
 
 - Reduce package size significantly by excluding extraneous files
