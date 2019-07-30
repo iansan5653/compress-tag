@@ -2,7 +2,9 @@
 
 All notable outward-facing changes will be documented in this file.
 
-<!--## [Unreleased]-->
+## [Unreleased]
+
+- Package a minified `index.min.js` for web / unpkg use
 
 ## 1.1.2
 
