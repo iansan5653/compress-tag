@@ -24,8 +24,8 @@ type ChainableTemplateLiteralTag = <T extends TemplateStringsArray | string>(
  * starting with the first element of `a`. If one array is longer than the
  * other, extra elements will be added onto the end of the result.
  * @param a The array whose first element will be the first element of the
- * output array.
- * @param b The array to merge into `a`.
+ * output array. Can be sparse.
+ * @param b The array to merge into `a`. Can be sparse.
  * @example
  * merge([1, 2, 3], ["A", "B", "C", "D", "E"]);
  * // => [1, "A", 2, "B", 3, "C", "D", "E"]
@@ -46,16 +46,16 @@ function merge<A extends any[], B extends any[]>(
  * Map of raw escape strings to the characters they represent.
  */
 const escapeCharacters = new Map<string, string>([
-  ["\\r", "\r"],
-  ["\\n", "\n"],
-  ["\\t", "\t"],
-  ["\\0", "\0"],
-  ["\\v", "\v"],
   ["\\'", "'"],
   ['\\"', '"'],
+  ["\\\\", "\\"],
+  ["\\0", "\0"],
   ["\\b", "\b"],
   ["\\f", "\f"],
-  ["\\\\", "\\"]
+  ["\\n", "\n"],
+  ["\\r", "\r"],
+  ["\\t", "\t"],
+  ["\\v", "\v"]
 ]);
 
 /**
@@ -69,7 +69,7 @@ const escapeCharacters = new Map<string, string>([
  */
 function deescape(raw: string): string {
   return raw.replace(
-    /\\(?:[rnt0v'"bf]|\\)/g,
+    /\\['"\\0bfnrtv]/g,
     (v): string => escapeCharacters.get(v) || v
   );
 }
@@ -134,6 +134,9 @@ function generateCompressTag(
  * @param stringOrStrings A string to process, or (when used as a template
  * literal tag), an automatically generated `TemplateStringsArray`.
  *
+ * **Note:** If passing a string to this function directly, to preserve line
+ * breaks and indents, you must double-escape them! Ie, `\\n`, not `\n`.
+ *
  * **Note:** You should typically not need to pass a `TemplateStringsArray`
  * directly to the function. Instead, use it as a template literal tag per the
  * example.
@@ -145,16 +148,11 @@ function generateCompressTag(
 export const compress = generateCompressTag();
 
 /**
- * Parses the string and placeholders as normal, then removes any line breaks
- * and the spaces surrounding each line (ie, indentation).
+ * Acts exactly the same as `compress` except that it doesn't insert spaces
+ * where line breaks were removed. This makes it useful for code and URLs, for
+ * example.
+ * @see compress For full documentation.
  *
- * Can be used either as a template literal tag or as a function that accepts
- * a string. This section option is used when the template literal already must
- * be tagged with some other tag.
- *
- * If you desire a linebreak to be present in the final result, you must provide
- * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
- * the result, you must include that as a tab character `\t`.
  * @example
  * let sampleText = "This is some sample text."
  * compressTight`
@@ -163,101 +161,44 @@ export const compress = generateCompressTag();
  *   </div>
  * `
  * // => "<div><span>This is some sample text.</span></div>"
+ *
  * @example
  * compressTight(uppercase`
  *   This is some
  *   sample text.
  * `)
  * // => "THIS IS SOMESAMPLE TEXT."
- * @returns The processed, minified / compressed string.
- * @param stringOrStrings A string to process, or (when used as a template
- * literal tag), an automatically generated `TemplateStringsArray`.
- *
- * **Note:** You should typically not need to pass a `TemplateStringsArray`
- * directly to the function. Instead, use it as a template literal tag per the
- * example.
- * @param placeholders Values of the placeholder expressions.
- *
- * **Note:** You should typically not need to pass this value directly to the
- * function. Instead, use it as a template literal tag per the example.
  */
 export const compressTight = generateCompressTag(true);
 
 /**
- * Parses the string and placeholders as normal, then removes any line breaks
- * and the spaces surrounding each line (ie, indentation), replacing each line
- * break with a single space. Empty lines are removed completely.
+ * Shorthand for `compress`.
+ * @see compress for full documentation.
  *
- * Can be used either as a template literal tag or as a function that accepts
- * a string. This section option is used when the template literal already must
- * be tagged with some other tag.
- *
- * If you desire a linebreak to be present in the final result, you must provide
- * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
- * the result, you must include that as a tab character `\t`.
  * @example
- * let sampleText = "This is some sample text."
- * c`
- *   <div>
- *     <span>${sampleText}</span>
- *   </div>
- * `
- * // => "<div> <span>This is some sample text.</span> </div>"
+ * c`Example
+ * text.`
+ * // => Example text.
+ *
  * @example
- * c(uppercase`
- *   This is some
- *   sample text.
- * `)
- * // => "THIS IS SOME SAMPLE TEXT."
- * @returns The processed, minified / compressed string.
- * @param stringOrStrings A string to process, or (when used as a template
- * literal tag), an automatically generated `TemplateStringsArray`.
- *
- * **Note:** You should typically not need to pass a `TemplateStringsArray`
- * directly to the function. Instead, use it as a template literal tag per the
- * example.
- * @param placeholders Values of the placeholder expressions.
- *
- * **Note:** You should typically not need to pass this value directly to the
- * function. Instead, use it as a template literal tag per the example.
+ * c(capitalize`Example
+ * text.`)
+ * // => EXAMPLE TEXT.
  */
 export const c = compress;
 
 /**
- * Parses the string and placeholders as normal, then removes any line breaks
- * and the spaces surrounding each line (ie, indentation).
+ * Shorthand for `compressTight`.
+ * @see compressTight for full documentation.
  *
- * Can be used either as a template literal tag or as a function that accepts
- * a string. This section option is used when the template literal already must
- * be tagged with some other tag.
- *
- * If you desire a linebreak to be present in the final result, you must provide
- * it as a linebreak character. (`\n` or `\r\n`). If you desire indentation in
- * the result, you must include that as a tab character `\t`.
  * @example
- * let sampleText = "This is some sample text."
- * t`
- *   <div>
- *     <span>${sampleText}</span>
- *   </div>
- * `
- * // => "<div><span>This is some sample text.</span></div>"
+ * t`Example
+ * text.`
+ * // => Exampletext.
+ *
  * @example
- * cT(uppercase`
- *   This is some
- *   sample text.
- * `)
- * // => "THIS IS SOMESAMPLE TEXT."
- * @returns The processed, minified / compressed string.
- * @param stringOrStrings A string to process, or (when used as a template
- * literal tag), an automatically generated `TemplateStringsArray`.
- *
- * **Note:** You should typically not need to pass a `TemplateStringsArray`
- * directly to the function. Instead, use it as a template literal tag per the
- * example.
- * @param placeholders Values of the placeholder expressions.
- *
- * **Note:** You should typically not need to pass this value directly to the
- * function. Instead, use it as a template literal tag per the example.
+ * t(capitalize`Example
+ * text.`)
+ * // => EXAMPLETEXT.
  */
 export const t = compressTight;

@@ -15,7 +15,8 @@
     "check": "npm run build && npm run testForCheck && npm run lint",
     "ensureCleanTree": "echo 'Checking to ensure all changes are committed...' && git diff --quiet --exit-code & git diff --quiet --cached --exit-code",
     "prepublishOnly": "npm run ensureCleanTree && npm run check",
-    "postpublish": "cross-var git tag $npm_package_version && git push --tags"
+    "postpublish": "cross-var git tag $npm_package_version && git push --tags",
+    "format": "prettier src/**/*.test.ts"
   },
   "author": {
     "name": "Ian Sanders",
