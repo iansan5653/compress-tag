@@ -5,6 +5,8 @@ All notable outward-facing changes will be documented in this file.
 ## 1.1.4 [Unreleased]
 
 - Don't package test files in NPM module
+- Fix bug with handling of escape characters and newlines in placholders
+- Performance improvements
 
 ## 1.1.3
 
