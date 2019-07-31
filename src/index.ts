@@ -99,30 +99,31 @@ function generateCompressTag(
   tight: boolean = false
 ): ChainableTemplateLiteralTag {
   return function(stringOrStrings, ...placeholders): string {
+    // Only happens when used as a wrapper function
     if (typeof stringOrStrings === "string") {
       return deescape(removeLineBreaks(stringOrStrings, tight).trim());
-    } else {
-      // The raw strings must be compressed prior to merging with placeholders
-      // because you never want to compress the placeholders.
-      // The reason we remove leading and trailing whitespace prior to deescape
-      // is to avoid trimming deescaped trailing and leading linebreaks/tabs.
-      let compressedStrings = (stringOrStrings as TemplateStringsArray).raw.map(
-        (rawString, index, list): string => {
-          let compressedString = rawString;
-          if (index === 0) {
-            // Remove leading whitespace (includes leading linebreaks).
-            compressedString = compressedString.replace(/^\s+/, "");
-          }
-          if (index === list.length - 1) {
-            // Remove trailing whitespace (includes trailing linebreaks).
-            compressedString = compressedString.replace(/\s+$/, "");
-          }
-          compressedString = removeLineBreaks(compressedString, tight);
-          return deescape(compressedString);
-        }
-      );
-      return mergeAndReduceToString(compressedStrings, placeholders);
     }
+
+    // The raw strings must be compressed prior to merging with placeholders
+    // because you never want to compress the placeholders.
+    // The reason we remove leading and trailing whitespace prior to deescape
+    // is to avoid trimming deescaped trailing and leading linebreaks/tabs.
+    let compressedStrings = (stringOrStrings as TemplateStringsArray).raw.map(
+      (rawString, index, list): string => {
+        let compressedString = rawString;
+        if (index === 0) {
+          // Remove leading whitespace (includes leading linebreaks).
+          compressedString = compressedString.replace(/^\s+/, "");
+        }
+        if (index === list.length - 1) {
+          // Remove trailing whitespace (includes trailing linebreaks).
+          compressedString = compressedString.replace(/\s+$/, "");
+        }
+        compressedString = removeLineBreaks(compressedString, tight);
+        return deescape(compressedString);
+      }
+    );
+    return mergeAndReduceToString(compressedStrings, placeholders);
   };
 }
 
