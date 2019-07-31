@@ -68,5 +68,15 @@
     "dist/index.js",
     "dist/index.js.map",
     "dist/index.min.js"
+  ],
+  "keywords": [
+    "strings",
+    "code format",
+    "minify",
+    "compress",
+    "template literal",
+    "template literal tag",
+    "es6",
+    "tag"
   ]
 }
