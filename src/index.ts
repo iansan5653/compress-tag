@@ -20,24 +20,23 @@ type ChainableTemplateLiteralTag = <T extends TemplateStringsArray | string>(
 ) => string;
 
 /**
- * Merge two arrays together into a new array, alternating every other element
- * starting with the first element of `a`. If one array is longer than the
- * other, extra elements will be added onto the end of the result.
- * @param a The array whose first element will be the first element of the
- * output array. Can be sparse.
+ * Zipper-merge two arrays together into string. Elements will be coerced to
+ * string values.
+ * @param a The array whose first element will be the first itme in the output
+ * string. Can be sparse.
  * @param b The array to merge into `a`. Can be sparse.
  * @example
  * merge([1, 2, 3], ["A", "B", "C", "D", "E"]);
- * // => [1, "A", 2, "B", 3, "C", "D", "E"]
+ * // => "1A2B3CDE"
  */
-function merge<A extends any[], B extends any[]>(
+function mergeAndReduce<A extends any[], B extends any[]>(
   a: A,
   b: B
-): Array<A[number] | B[number]> {
-  const result = [];
+): string {
+  let result = "";
   for (let i = 0; i < Math.max(a.length, b.length); i++) {
-    if (i in a) result.push(a[i]);
-    if (i in b) result.push(b[i]);
+    if (i in a) result += a[i];
+    if (i in b) result += b[i];
   }
   return result;
 }
@@ -122,10 +121,7 @@ function generateCompressTag(
           return deescape(compressedString);
         }
       );
-      return merge(compressedStrings, placeholders).reduce(
-        (result, element): string => result + element,
-        ""
-      );
+      return mergeAndReduce(compressedStrings, placeholders);
     }
   };
 }
