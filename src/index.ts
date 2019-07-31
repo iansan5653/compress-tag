@@ -75,6 +75,16 @@ function deescape(raw: string): string {
 }
 
 /**
+ * Remove the linebreaks and their surrounding space from the passed string,
+ * replacing each with a single space if `tight` is false.
+ * @param text The string to process.
+ * @param tight If true, will *not* replace those breaks with a space.
+ */
+function removeLineBreaks(text: string, tight: boolean): string {
+  return text.replace(/\s*[\r\n]+\s*/g, tight ? "" : " ");
+}
+
+/**
  * Generate a template literal tag that compresses (AKA minifies) a template
  * string. In this context, compress is defined as removing line breaks and
  * trailing / leading spaces from each line.
@@ -91,29 +101,27 @@ function generateCompressTag(
 ): ChainableTemplateLiteralTag {
   return function(stringOrStrings, ...placeholders): string {
     if (typeof stringOrStrings === "string") {
-      return deescape(
-        stringOrStrings.replace(/\s*[\r\n]+\s*/g, tight ? "" : " ").trim()
-      );
+      return deescape(removeLineBreaks(stringOrStrings, !tight).trim());
     } else {
       // The raw strings must be compressed prior to merging with placeholders
       // because you never want to compress the placeholders.
-      const rawStrings = Array.from(
-        (stringOrStrings as TemplateStringsArray).raw
+      // The reason we remove leading and trailing whitespace prior to deescape
+      // is to avoid trimming deescaped trailing and leading linebreaks/tabs.
+      let compressedStrings = (stringOrStrings as TemplateStringsArray).raw.map(
+        (rawString, index, list): string => {
+          let compressedString = rawString;
+          if (index === 0) {
+            // Remove leading whitespace (includes leading linebreaks).
+            compressedString = compressedString.replace(/^\s+/, "");
+          }
+          if (index === list.length - 1) {
+            // Remove trailing whitespace (includes trailing linebreaks).
+            compressedString = compressedString.replace(/\s+$/, "");
+          }
+          compressedString = removeLineBreaks(compressedString, !tight);
+          return deescape(compressedString);
+        }
       );
-      let compressedStrings = rawStrings.map((rawString, index, list): string => {
-        let compressedString = rawString;
-        if (index === 0) {
-          compressedString = compressedString.replace(/^\s+/, "");
-        }
-        if (index === (list.length - 1)) {
-          compressedString = compressedString.replace(/\s+$/, "");
-        }
-        compressedString = compressedString.replace(
-          /\s*[\r\n]+\s*/g,
-          tight ? "" : " "
-        );
-        return deescape(compressedString);
-      });
       return merge(compressedStrings, placeholders).reduce(
         (result, element): string => result + element,
         ""
