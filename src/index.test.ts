@@ -76,11 +76,12 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect escape characters in placeholders", function(): void {
+          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
           assert.strictEqual(
-            compressTight`${"c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\""}`,
-            `${"c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\""}`
+            compressTight`${oddString}`,
+            `${oddString}`
           );
-        })
+        });
       });
 
       describe("removes all newlines and replaces with a space", function(): void {
@@ -262,11 +263,12 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect escape characters in placeholders", function(): void {
+          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
           assert.strictEqual(
-            compressTight`${"c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\""}`,
-            `${"c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\""}`
+            compressTight`${oddString}`,
+            `${oddString}`
           );
-        })
+        });
       });
 
       describe("removes all newlines and does not replace with a space", function(): void {
@@ -439,6 +441,14 @@ context("compress-tag", function(): void {
           assert.strictEqual(
             compress(`\\r\\t\\n\\0\\v\\f\\b\\\\'\\"`),
             `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
+          );
+        });
+
+        it("should not affect escape characters in placeholders", function(): void {
+          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
+          assert.strictEqual(
+            compressTight`${oddString}`,
+            `${oddString}`
           );
         });
       });
@@ -614,6 +624,14 @@ context("compress-tag", function(): void {
           assert.strictEqual(
             compressTight(`\\r\\t\\n\\0\\v\\f\\b\\\\'\\"`),
             `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
+          );
+        });
+
+        it("should not affect escape characters in placeholders", function(): void {
+          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
+          assert.strictEqual(
+            compressTight`${oddString}`,
+            `${oddString}`
           );
         });
       });

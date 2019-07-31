@@ -90,17 +90,35 @@ function generateCompressTag(
   tight: boolean = false
 ): ChainableTemplateLiteralTag {
   return function(stringOrStrings, ...placeholders): string {
-    const combined =
-      typeof stringOrStrings === "string"
-        ? stringOrStrings
-        : merge(
-            Array.from((stringOrStrings as TemplateStringsArray).raw),
-            placeholders
-          ).reduce((result, element): string => result + element, "");
-
-    return deescape(
-      combined.replace(/\s*[\r\n]+\s*/g, tight ? "" : " ").trim()
-    );
+    if (typeof stringOrStrings === "string") {
+      return deescape(
+        stringOrStrings.replace(/\s*[\r\n]+\s*/g, tight ? "" : " ").trim()
+      );
+    } else {
+      // The raw strings must be compressed prior to merging with placeholders
+      // because you never want to compress the placeholders.
+      const rawStrings = Array.from(
+        (stringOrStrings as TemplateStringsArray).raw
+      );
+      let compressedStrings = rawStrings.map((rawString, index, list): string => {
+        let compressedString = rawString;
+        if (index === 0) {
+          compressedString = compressedString.replace(/^\s+/, "");
+        }
+        if (index === (list.length - 1)) {
+          compressedString = compressedString.replace(/\s+$/, "");
+        }
+        compressedString = compressedString.replace(
+          /\s*[\r\n]+\s*/g,
+          tight ? "" : " "
+        );
+        return deescape(compressedString);
+      });
+      return merge(compressedStrings, placeholders).reduce(
+        (result, element): string => result + element,
+        ""
+      );
+    }
   };
 }
 
