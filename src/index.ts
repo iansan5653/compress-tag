@@ -29,7 +29,7 @@ type ChainableTemplateLiteralTag = <T extends TemplateStringsArray | string>(
  * merge([1, 2, 3], ["A", "B", "C", "D", "E"]);
  * // => "1A2B3CDE"
  */
-function mergeAndReduce<A extends any[], B extends any[]>(
+function mergeAndReduceToString<A extends any[], B extends any[]>(
   a: A,
   b: B
 ): string {
@@ -121,7 +121,7 @@ function generateCompressTag(
           return deescape(compressedString);
         }
       );
-      return mergeAndReduce(compressedStrings, placeholders);
+      return mergeAndReduceToString(compressedStrings, placeholders);
     }
   };
 }
