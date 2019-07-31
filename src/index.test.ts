@@ -67,6 +67,20 @@ context("compress-tag", function(): void {
             `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
           );
         });
+
+        it("should handle escaped URIs correctly", function(): void {
+          assert.strictEqual(
+            compressTight`c:\\f\\r\\newfolder\\v\\bin`,
+            `c:\\f\\r\\newfolder\\v\\bin`
+          );
+        });
+
+        it("should not affect escape characters in placeholders", function(): void {
+          assert.strictEqual(
+            compressTight`${"c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\""}`,
+            `${"c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\""}`
+          );
+        })
       });
 
       describe("removes all newlines and replaces with a space", function(): void {
@@ -239,6 +253,20 @@ context("compress-tag", function(): void {
             `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
           );
         });
+
+        it("should handle escaped URIs correctly", function(): void {
+          assert.strictEqual(
+            compressTight`c:\\f\\r\\newfolder\\v\\bin`,
+            `c:\\f\\r\\newfolder\\v\\bin`
+          );
+        });
+
+        it("should not affect escape characters in placeholders", function(): void {
+          assert.strictEqual(
+            compressTight`${"c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\""}`,
+            `${"c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\""}`
+          );
+        })
       });
 
       describe("removes all newlines and does not replace with a space", function(): void {
