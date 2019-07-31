@@ -101,7 +101,7 @@ function generateCompressTag(
 ): ChainableTemplateLiteralTag {
   return function(stringOrStrings, ...placeholders): string {
     if (typeof stringOrStrings === "string") {
-      return deescape(removeLineBreaks(stringOrStrings, !tight).trim());
+      return deescape(removeLineBreaks(stringOrStrings, tight).trim());
     } else {
       // The raw strings must be compressed prior to merging with placeholders
       // because you never want to compress the placeholders.
@@ -118,7 +118,7 @@ function generateCompressTag(
             // Remove trailing whitespace (includes trailing linebreaks).
             compressedString = compressedString.replace(/\s+$/, "");
           }
-          compressedString = removeLineBreaks(compressedString, !tight);
+          compressedString = removeLineBreaks(compressedString, tight);
           return deescape(compressedString);
         }
       );
