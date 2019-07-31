@@ -20,24 +20,23 @@ type ChainableTemplateLiteralTag = <T extends TemplateStringsArray | string>(
 ) => string;
 
 /**
- * Merge two arrays together into a new array, alternating every other element
- * starting with the first element of `a`. If one array is longer than the
- * other, extra elements will be added onto the end of the result.
- * @param a The array whose first element will be the first element of the
- * output array. Can be sparse.
+ * Zipper-merge two arrays together into string. Elements will be coerced to
+ * string values.
+ * @param a The array whose first element will be the first itme in the output
+ * string. Can be sparse.
  * @param b The array to merge into `a`. Can be sparse.
  * @example
  * merge([1, 2, 3], ["A", "B", "C", "D", "E"]);
- * // => [1, "A", 2, "B", 3, "C", "D", "E"]
+ * // => "1A2B3CDE"
  */
-function merge<A extends any[], B extends any[]>(
+function mergeAndReduceToString<A extends any[], B extends any[]>(
   a: A,
   b: B
-): Array<A[number] | B[number]> {
-  const result = [];
+): string {
+  let result = "";
   for (let i = 0; i < Math.max(a.length, b.length); i++) {
-    if (i in a) result.push(a[i]);
-    if (i in b) result.push(b[i]);
+    if (i in a) result += a[i];
+    if (i in b) result += b[i];
   }
   return result;
 }
@@ -75,6 +74,16 @@ function deescape(raw: string): string {
 }
 
 /**
+ * Remove the linebreaks and their surrounding space from the passed string,
+ * replacing each with a single space if `tight` is false.
+ * @param text The string to process.
+ * @param tight If true, will *not* replace those breaks with a space.
+ */
+function removeLineBreaks(text: string, tight: boolean): string {
+  return text.replace(/\s*[\r\n]+\s*/g, tight ? "" : " ");
+}
+
+/**
  * Generate a template literal tag that compresses (AKA minifies) a template
  * string. In this context, compress is defined as removing line breaks and
  * trailing / leading spaces from each line.
@@ -90,17 +99,31 @@ function generateCompressTag(
   tight: boolean = false
 ): ChainableTemplateLiteralTag {
   return function(stringOrStrings, ...placeholders): string {
-    const combined =
-      typeof stringOrStrings === "string"
-        ? stringOrStrings
-        : merge(
-            Array.from((stringOrStrings as TemplateStringsArray).raw),
-            placeholders
-          ).reduce((result, element): string => result + element, "");
+    // Only happens when used as a wrapper function
+    if (typeof stringOrStrings === "string") {
+      return deescape(removeLineBreaks(stringOrStrings, tight).trim());
+    }
 
-    return deescape(
-      combined.replace(/\s*[\r\n]+\s*/g, tight ? "" : " ").trim()
+    // The raw strings must be compressed prior to merging with placeholders
+    // because you never want to compress the placeholders.
+    // The reason we remove leading and trailing whitespace prior to deescape
+    // is to avoid trimming deescaped trailing and leading linebreaks/tabs.
+    const compressedStrings = (stringOrStrings as TemplateStringsArray).raw.map(
+      (rawString, index, list): string => {
+        let compressedString = rawString;
+        if (index === 0) {
+          // Remove leading whitespace (includes leading linebreaks).
+          compressedString = compressedString.replace(/^\s+/, "");
+        }
+        if (index === list.length - 1) {
+          // Remove trailing whitespace (includes trailing linebreaks).
+          compressedString = compressedString.replace(/\s+$/, "");
+        }
+        compressedString = removeLineBreaks(compressedString, tight);
+        return deescape(compressedString);
+      }
     );
+    return mergeAndReduceToString(compressedStrings, placeholders);
   };
 }
 

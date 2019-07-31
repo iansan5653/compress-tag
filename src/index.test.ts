@@ -67,6 +67,22 @@ context("compress-tag", function(): void {
             `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
           );
         });
+
+        it("should handle escaped URIs correctly", function(): void {
+          assert.strictEqual(
+            compressTight`c:\\f\\r\\newfolder\\v\\bin`,
+            `c:\\f\\r\\newfolder\\v\\bin`
+          );
+        });
+
+        it("should not affect escape characters in placeholders", function(): void {
+          // eslint-disable-next-line no-useless-escape
+          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
+          assert.strictEqual(
+            compressTight`${oddString}`,
+            `${oddString}`
+          );
+        });
       });
 
       describe("removes all newlines and replaces with a space", function(): void {
@@ -237,6 +253,22 @@ context("compress-tag", function(): void {
           assert.strictEqual(
             compressTight`\r\t\n\0\v\f\b\\\'\"`,
             `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
+          );
+        });
+
+        it("should handle escaped URIs correctly", function(): void {
+          assert.strictEqual(
+            compressTight`c:\\f\\r\\newfolder\\v\\bin`,
+            `c:\\f\\r\\newfolder\\v\\bin`
+          );
+        });
+
+        it("should not affect escape characters in placeholders", function(): void {
+          // eslint-disable-next-line no-useless-escape
+          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
+          assert.strictEqual(
+            compressTight`${oddString}`,
+            `${oddString}`
           );
         });
       });
@@ -413,6 +445,15 @@ context("compress-tag", function(): void {
             `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
           );
         });
+
+        it("should not affect escape characters in placeholders", function(): void {
+          // eslint-disable-next-line no-useless-escape
+          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
+          assert.strictEqual(
+            compressTight`${oddString}`,
+            `${oddString}`
+          );
+        });
       });
 
       describe("removes all newlines and replaces with a space", function(): void {
@@ -586,6 +627,15 @@ context("compress-tag", function(): void {
           assert.strictEqual(
             compressTight(`\\r\\t\\n\\0\\v\\f\\b\\\\'\\"`),
             `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
+          );
+        });
+
+        it("should not affect escape characters in placeholders", function(): void {
+          // eslint-disable-next-line no-useless-escape
+          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
+          assert.strictEqual(
+            compressTight`${oddString}`,
+            `${oddString}`
           );
         });
       });
