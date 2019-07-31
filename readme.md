@@ -17,20 +17,50 @@ from your template literals, so that a string that is formatted to nicely fit in
 your code still comes out looking like it should. They are also
 [chainable](#Chaining) in case you are already using template literal tags.
 
-This allows you to keep all lines of code within whatever length limit you
-prefer without having to resort to hacks like adding each line of string to the
-previous or escaping each linebreak.
-
+In other words, you can replace these:
 ```js
-let paragraph = c`
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis
-  mi quam, ut rhoncus nisi pulvinar in. Duis lobortis nisl libero, non imperdiet
-  lectus ultrices sed. Aliquam erat volutpat. Sed egestas dignissim iaculis.
-  Etiam felis risus, tempor ac dignissim id, vestibulum in mauris. Nam attempus
-  tellus. Aliquam vitae metus tempor, tempus tellus id, vulputate magna. Vivamus
-  a enim feugiat, mattis leo in, blandit nunc. Cras faucibus pellentesque dolor,
-  et euismod mauris sagittis vitae. Quisque egestas metus pretium mollis tempor.
-`;
+throw new Error(
+  "An error occured while parsing the CSV file. Check that the 'delimiters' option is set properly and try again."
+);
+
+const result = prompt(
+  "Enter a description to attach to this entry. This should be descriptive," +
+    "but less than 200 characters.",
+  "Enter your description here."
+);
+
+renderTextContent(`The quick brown fox jumps over the lazy dog. The quick \
+brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy \
+dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps \
+over the lazy dog.
+
+The quick brown fox jumps over the lazy dog. The quick brown fox jumps over \
+the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown \
+fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.`);
+```
+
+with these:
+```js
+throw new Error(c`
+  An error occured while parsing the CSV file. Check that the 'delimiters'
+  option is set properly and try again."
+`);
+
+const result = prompt(
+  c`Enter a description to attach to this entry. This should be descriptive,
+    but less than 200 characters.`,
+  "Enter your description here."
+);
+
+renderTextContent(c`
+  The quick brown fox jumps over the lazy dog. The quick brown fox jumps over
+  the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox
+  jumps over the lazy dog. The quick brown fox jumps over the lazy dog.\n\n
+
+  The quick brown fox jumps over the lazy dog. The quick brown fox jumps over
+  the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox
+  jumps over the lazy dog. The quick brown fox jumps over the lazy dog
+`);
 ```
 
 ## Installation

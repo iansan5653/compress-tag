@@ -2,6 +2,10 @@
 
 All notable outward-facing changes will be documented in this file.
 
+## 1.1.5
+
+- Update readme with better examples
+
 ## 1.1.4
 
 - Don't package test files in NPM module
