@@ -76,6 +76,7 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect escape characters in placeholders", function(): void {
+          // eslint-disable-next-line no-useless-escape
           const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
           assert.strictEqual(
             compressTight`${oddString}`,
@@ -263,6 +264,7 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect escape characters in placeholders", function(): void {
+          // eslint-disable-next-line no-useless-escape
           const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
           assert.strictEqual(
             compressTight`${oddString}`,
@@ -445,6 +447,7 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect escape characters in placeholders", function(): void {
+          // eslint-disable-next-line no-useless-escape
           const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
           assert.strictEqual(
             compressTight`${oddString}`,
@@ -628,6 +631,7 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect escape characters in placeholders", function(): void {
+          // eslint-disable-next-line no-useless-escape
           const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
           assert.strictEqual(
             compressTight`${oddString}`,

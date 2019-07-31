@@ -108,7 +108,7 @@ function generateCompressTag(
     // because you never want to compress the placeholders.
     // The reason we remove leading and trailing whitespace prior to deescape
     // is to avoid trimming deescaped trailing and leading linebreaks/tabs.
-    let compressedStrings = (stringOrStrings as TemplateStringsArray).raw.map(
+    const compressedStrings = (stringOrStrings as TemplateStringsArray).raw.map(
       (rawString, index, list): string => {
         let compressedString = rawString;
         if (index === 0) {
