@@ -98,7 +98,7 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect quotation marks in strings", function(): void {
-          assert.strictEqual(compressTight`"'`, `"'`);
+          assert.strictEqual(compressTight`"test"'test'"`, `"test"'test'"`);
         });
 
         it("should not affect escaped template literal characters", function(): void {
@@ -307,7 +307,7 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect quotation marks in strings", function(): void {
-          assert.strictEqual(compressTight`"'`, `"'`);
+          assert.strictEqual(compressTight`"test"'test'"`, `"test"'test'"`);
         });
 
         it("should not affect escaped template literal characters", function(): void {
@@ -504,7 +504,7 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect quotation marks in strings", function(): void {
-          assert.strictEqual(compress(`"'`), `"'`);
+          assert.strictEqual(compress(`"test"'test'"`), `"test"'test'"`);
         });
 
         it("should not affect escaped template literal characters", function(): void {
@@ -682,7 +682,7 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect quotation marks in strings", function(): void {
-          assert.strictEqual(compressTight(`"'`), `"'`);
+          assert.strictEqual(compressTight(`"test"'test'"`), `"test"'test'"`);
         });
 
         it("should not affect escaped template literal characters", function(): void {
