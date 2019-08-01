@@ -2,6 +2,11 @@
 
 All notable outward-facing changes will be documented in this file.
 
+## 1.1.6
+- Removed ability to preserve linebreaks when used as wrapper methods (was
+  breaking URIs)
+- Update readme to display better on NPM
+
 ## 1.1.5
 
 - Update readme with better examples
