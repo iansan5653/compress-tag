@@ -153,17 +153,8 @@ let F = c(capitalize`
 // => LOREM IPSUM DOLOR SIT AMET.
 ```
 
-\* **Note**: A side effect of using the tags as a method is that if you want to
-preserve linebreaks or tabs, you must add them as `\\n` or `\\t` instead of
-`\n` or `\t` as described [above](#preserving-some-linebreaks). A PR to fix this
-would be welcomed.
-
-Example (note the lack of linebreak between *dolor* and *sit*):
-```js
-let F = c(capitalize`Lorem ipsum \\n dolor \n sit amet.`);
-// => LOREM IPSUM
-//DOLOR SIT AMET.
-```
+\* **Note**: When using tags as a method, there is no way to preserve newlines;
+using the `\n` character will not work.
 
 ### ESLint
 Since there is now no reason for your strings to be long, you can modify your

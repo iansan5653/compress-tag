@@ -451,16 +451,16 @@ context("compress-tag", function(): void {
           assert.strictEqual(compress(`${obj}`), `${obj}`);
         });
 
-        it("should correctly process all known escape sequences", function(): void {
+        it("should correctly process all non-newline escape sequences", function(): void {
           assert.strictEqual(
-            compress(`\r\t\n\0\v\f\b\\\'\"`),
-            `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
+            compress(`\0\v\f\b\\\'\"`),
+            `\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
           );
         });
 
-        it("should not affect escape characters in placeholders", function(): void {
+        it("should not affect escape characters in placeholders or URIs", function(): void {
           // eslint-disable-next-line no-useless-escape
-          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\'\"";
+          const oddString = "c:\\f\\r\\n\\v\\b \0\v\f\b\\'\"";
           assert.strictEqual(compress(`${oddString}`), `${oddString}`);
         });
 
@@ -612,16 +612,16 @@ context("compress-tag", function(): void {
           assert.strictEqual(compressTight(`${obj}`), `${obj}`);
         });
 
-        it("should correctly process all known escape sequences", function(): void {
+        it("should correctly process all non-newline escape sequences", function(): void {
           assert.strictEqual(
-            compressTight(`\r\t\n\0\v\f\b\\\'\"`),
-            `\r\t\n\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
+            compressTight(`\0\v\f\b\\\'\"`),
+            `\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
           );
         });
 
-        it("should not affect escape characters in placeholders", function(): void {
+        it("should not affect escape characters in placeholders or URIs", function(): void {
           // eslint-disable-next-line no-useless-escape
-          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\'\"";
+          const oddString = "c:\\f\\r\\n\\v\\b \0\v\f\b\\'\"";
           assert.strictEqual(compressTight(`${oddString}`), `${oddString}`);
         });
 

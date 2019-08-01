@@ -101,7 +101,7 @@ function generateCompressTag(
   return function(stringOrStrings, ...placeholders): string {
     // Only happens when used as a wrapper function
     if (typeof stringOrStrings === "string") {
-      return deescape(removeLineBreaks(stringOrStrings, tight).trim());
+      return removeLineBreaks(stringOrStrings, tight).trim();
     }
 
     // The raw strings must be compressed prior to merging with placeholders
@@ -157,8 +157,8 @@ function generateCompressTag(
  * @param stringOrStrings A string to process, or (when used as a template
  * literal tag), an automatically generated `TemplateStringsArray`.
  *
- * **Note:** If passing a string to this function directly, to preserve line
- * breaks and indents, you must double-escape them! Ie, `\\n`, not `\n`.
+ * **Note:** If passing a string to this function directly, manual linebreaks
+ * will not be preserved.
  *
  * **Note:** You should typically not need to pass a `TemplateStringsArray`
  * directly to the function. Instead, use it as a template literal tag per the
