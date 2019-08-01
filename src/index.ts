@@ -41,21 +41,23 @@ function mergeAndReduceToString<A extends any[], B extends any[]>(
   return result;
 }
 
-/**
- * Map of raw escape strings to the characters they represent.
- */
-const escapeCharacters = new Map<string, string>([
+function escapeForJSON(text: string): string {
+  // TODO: Look for any number of slashed before a special character, then
+  // only replace if the number of slashes is odd
+  return text.replace(/\\"/g, '"').replace(/\\['vf0b]|"/g, (ch) => "\\" + ch);
+}
+
+const disallowedJSONEscapes = new Map<string, string>([
   ["\\'", "'"],
-  ['\\"', '"'],
-  ["\\\\", "\\"],
-  ["\\0", "\0"],
-  ["\\b", "\b"],
+  ["\\v", "\v"],
   ["\\f", "\f"],
-  ["\\n", "\n"],
-  ["\\r", "\r"],
-  ["\\t", "\t"],
-  ["\\v", "\v"]
+  ["\\0", "\0"],
+  ["\\b", "\b"]
 ]);
+
+function deescapeForJSON(text: string): string {
+  return text.replace(/\\['vf0b]/g, (ch) => (disallowedJSONEscapes.get(ch) as string));
+}
 
 /**
  * Replace raw escape character strings with their escape characters.
@@ -67,10 +69,9 @@ const escapeCharacters = new Map<string, string>([
  * // => "\n"
  */
 function deescape(raw: string): string {
-  return raw.replace(
-    /\\['"\\0bfnrtv]/g,
-    (v): string => escapeCharacters.get(v) || v
-  );
+  // JSON.parse will do the escaping for us, but the passed string must be
+  // quoted and all internal quotes must be escaped
+  return deescapeForJSON(JSON.parse('"' + escapeForJSON(raw) + '"'));
 }
 
 /**
