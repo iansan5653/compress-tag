@@ -70,18 +70,24 @@ context("compress-tag", function(): void {
 
         it("should handle escaped URIs correctly", function(): void {
           assert.strictEqual(
-            compressTight`c:\\f\\r\\newfolder\\v\\bin`,
+            compress`c:\\f\\r\\newfolder\\v\\bin`,
             `c:\\f\\r\\newfolder\\v\\bin`
           );
         });
 
         it("should not affect escape characters in placeholders", function(): void {
           // eslint-disable-next-line no-useless-escape
-          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
-          assert.strictEqual(
-            compressTight`${oddString}`,
-            `${oddString}`
-          );
+          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\'\"";
+          assert.strictEqual(compress`${oddString}`, `${oddString}`);
+        });
+
+        it("should error if a placeholders cannot be converted to a string", function(): void {
+          assert.throws(function() {
+            compress`${{
+              valueOf: null,
+              toString: null
+            }}`;
+          });
         });
       });
 
@@ -265,11 +271,17 @@ context("compress-tag", function(): void {
 
         it("should not affect escape characters in placeholders", function(): void {
           // eslint-disable-next-line no-useless-escape
-          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
-          assert.strictEqual(
-            compressTight`${oddString}`,
-            `${oddString}`
-          );
+          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\'\"";
+          assert.strictEqual(compressTight`${oddString}`, `${oddString}`);
+        });
+
+        it("should error if a placeholders cannot be converted to a string", function(): void {
+          assert.throws(function() {
+            compressTight`${{
+              valueOf: null,
+              toString: null
+            }}`;
+          });
         });
       });
 
@@ -448,12 +460,11 @@ context("compress-tag", function(): void {
 
         it("should not affect escape characters in placeholders", function(): void {
           // eslint-disable-next-line no-useless-escape
-          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
-          assert.strictEqual(
-            compressTight`${oddString}`,
-            `${oddString}`
-          );
+          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\'\"";
+          assert.strictEqual(compress(`${oddString}`), `${oddString}`);
         });
+
+        // Don't test throws because that's a basic behavior of template literals here
       });
 
       describe("removes all newlines and replaces with a space", function(): void {
@@ -493,8 +504,8 @@ context("compress-tag", function(): void {
 
         it("should remove leading newlines without leaving leading spaces", function(): void {
           assert.strictEqual(
-            compress`
-  this has a leading new line`,
+            compress(`
+  this has a leading new line`),
             "this has a leading new line"
           );
         });
@@ -632,12 +643,11 @@ context("compress-tag", function(): void {
 
         it("should not affect escape characters in placeholders", function(): void {
           // eslint-disable-next-line no-useless-escape
-          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\\'\"";
-          assert.strictEqual(
-            compressTight`${oddString}`,
-            `${oddString}`
-          );
+          const oddString = "c:\\f\\r\\n\\v\\b \r\t\n\0\v\f\b\\'\"";
+          assert.strictEqual(compressTight(`${oddString}`), `${oddString}`);
         });
+
+        // Don't test throws because that's a basic behavior of template literals here
       });
 
       describe("removes all newlines and does not replace with a space", function(): void {
@@ -677,8 +687,8 @@ context("compress-tag", function(): void {
 
         it("should remove leading newlines without leaving leading spaces", function(): void {
           assert.strictEqual(
-            compressTight`
-  this has a leading new line`,
+            compressTight(`
+  this has a leading new line`),
             "this has a leading new line"
           );
         });
