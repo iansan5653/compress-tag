@@ -82,7 +82,7 @@ context("compress-tag", function(): void {
         });
 
         it("should error if a placeholders cannot be converted to a string", function(): void {
-          assert.throws(function() {
+          assert.throws(function(): void {
             compress`${{
               valueOf: null,
               toString: null
@@ -276,7 +276,7 @@ context("compress-tag", function(): void {
         });
 
         it("should error if a placeholders cannot be converted to a string", function(): void {
-          assert.throws(function() {
+          assert.throws(function(): void {
             compressTight`${{
               valueOf: null,
               toString: null
@@ -453,7 +453,7 @@ context("compress-tag", function(): void {
 
         it("should correctly process all non-newline escape sequences", function(): void {
           assert.strictEqual(
-            compress(`\0\v\f\b\\\'\"`),
+            compress(`\0\v\f\b\\\'\"`), // eslint-disable-line no-useless-escape
             `\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
           );
         });
@@ -614,7 +614,7 @@ context("compress-tag", function(): void {
 
         it("should correctly process all non-newline escape sequences", function(): void {
           assert.strictEqual(
-            compressTight(`\0\v\f\b\\\'\"`),
+            compressTight(`\0\v\f\b\\\'\"`), // eslint-disable-line no-useless-escape
             `\0\v\f\b\\\'\"` // eslint-disable-line no-useless-escape
           );
         });
