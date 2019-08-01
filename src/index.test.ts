@@ -96,6 +96,14 @@ context("compress-tag", function(): void {
             `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
           );
         });
+
+        it("should not affect quotation marks in strings", function(): void {
+          assert.strictEqual(compressTight`"'`, `"'`);
+        });
+
+        it("should not affect escaped template literal characters", function(): void {
+          assert.strictEqual(compressTight`\$\{\}$\{}`, `\$\{\}$\{}`);
+        });
       });
 
       describe("removes all newlines and replaces with a space", function(): void {
@@ -297,6 +305,14 @@ context("compress-tag", function(): void {
             `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
           );
         });
+
+        it("should not affect quotation marks in strings", function(): void {
+          assert.strictEqual(compressTight`"'`, `"'`);
+        });
+
+        it("should not affect escaped template literal characters", function(): void {
+          assert.strictEqual(compressTight`\$\{\}$\{}`, `\$\{\}$\{}`);
+        });
       });
 
       describe("removes all newlines and does not replace with a space", function(): void {
@@ -487,6 +503,14 @@ context("compress-tag", function(): void {
           );
         });
 
+        it("should not affect quotation marks in strings", function(): void {
+          assert.strictEqual(compress(`"'`), `"'`);
+        });
+
+        it("should not affect escaped template literal characters", function(): void {
+          assert.strictEqual(compress(`\$\{\}$\{}`), `\$\{\}$\{}`);
+        });
+
         // Don't test throws because that's a basic behavior of template literals here
       });
 
@@ -655,6 +679,14 @@ context("compress-tag", function(): void {
             ),
             `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
           );
+        });
+
+        it("should not affect quotation marks in strings", function(): void {
+          assert.strictEqual(compressTight(`"'`), `"'`);
+        });
+
+        it("should not affect escaped template literal characters", function(): void {
+          assert.strictEqual(compressTight(`\$\{\}$\{}`), `\$\{\}$\{}`);
         });
 
         // Don't test throws because that's a basic behavior of template literals here
