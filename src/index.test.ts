@@ -89,6 +89,13 @@ context("compress-tag", function(): void {
             }}`;
           });
         });
+
+        it("should not affect Unicode code point escape characters", function(): void {
+          assert.strictEqual(
+            compress`\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`,
+            `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
+          );
+        });
       });
 
       describe("removes all newlines and replaces with a space", function(): void {
@@ -283,6 +290,13 @@ context("compress-tag", function(): void {
             }}`;
           });
         });
+
+        it("should not affect Unicode code point escape characters", function(): void {
+          assert.strictEqual(
+            compressTight`\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`,
+            `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
+          );
+        });
       });
 
       describe("removes all newlines and does not replace with a space", function(): void {
@@ -464,6 +478,15 @@ context("compress-tag", function(): void {
           assert.strictEqual(compress(`${oddString}`), `${oddString}`);
         });
 
+        it("should not affect Unicode code point escape characters", function(): void {
+          assert.strictEqual(
+            compress(
+              `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
+            ),
+            `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
+          );
+        });
+
         // Don't test throws because that's a basic behavior of template literals here
       });
 
@@ -623,6 +646,15 @@ context("compress-tag", function(): void {
           // eslint-disable-next-line no-useless-escape
           const oddString = "c:\\f\\r\\n\\v\\b \0\v\f\b\\'\"";
           assert.strictEqual(compressTight(`${oddString}`), `${oddString}`);
+        });
+
+        it("should not affect Unicode code point escape characters", function(): void {
+          assert.strictEqual(
+            compressTight(
+              `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
+            ),
+            `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
+          );
         });
 
         // Don't test throws because that's a basic behavior of template literals here
