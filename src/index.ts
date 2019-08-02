@@ -29,10 +29,7 @@ type ChainableTemplateLiteralTag = <T extends TemplateStringsArray | string>(
  * merge([1, 2, 3], ["A", "B", "C", "D", "E"]);
  * // => "1A2B3CDE"
  */
-function mergeAndReduceToString<A extends any[], B extends any[]>(
-  a: A,
-  b: B
-): string {
+function mergeAndReduceToString(a: any[], b: any[]): string {
   let result = "";
   for (let i = 0; i < Math.max(a.length, b.length); i++) {
     if (i in a) result += a[i];
