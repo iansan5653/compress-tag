@@ -41,23 +41,21 @@ function mergeAndReduceToString<A extends any[], B extends any[]>(
   return result;
 }
 
-function escapeForJSON(text: string): string {
-  // TODO: Look for any number of slashed before a special character, then
-  // only replace if the number of slashes is odd
-  return text.replace(/\\"/g, '"').replace(/\\['vf0b]|"/g, (ch) => "\\" + ch);
-}
-
-const disallowedJSONEscapes = new Map<string, string>([
+/**
+ * Map of raw escape strings to the characters they represent.
+ */
+const escapeCharacters = new Map<string, string>([
   ["\\'", "'"],
-  ["\\v", "\v"],
-  ["\\f", "\f"],
+  ['\\"', '"'],
+  ["\\\\", "\\"],
   ["\\0", "\0"],
-  ["\\b", "\b"]
+  ["\\b", "\b"],
+  ["\\f", "\f"],
+  ["\\n", "\n"],
+  ["\\r", "\r"],
+  ["\\t", "\t"],
+  ["\\v", "\v"]
 ]);
-
-function deescapeForJSON(text: string): string {
-  return text.replace(/\\['vf0b]/g, (ch) => (disallowedJSONEscapes.get(ch) as string));
-}
 
 /**
  * Replace raw escape character strings with their escape characters.
@@ -69,9 +67,10 @@ function deescapeForJSON(text: string): string {
  * // => "\n"
  */
 function deescape(raw: string): string {
-  // JSON.parse will do the escaping for us, but the passed string must be
-  // quoted and all internal quotes must be escaped
-  return deescapeForJSON(JSON.parse('"' + escapeForJSON(raw) + '"'));
+  return raw.replace(
+    /\\['"\\0bfnrtv]/g,
+    (v): string => escapeCharacters.get(v) || v
+  );
 }
 
 /**

@@ -68,7 +68,7 @@ context("compress-tag", function(): void {
           );
         });
 
-        it("should handle escaped URIs correctly", function(): void {
+        it("should not affect escaped backslash before escape character", function(): void {
           assert.strictEqual(
             compress`c:\\f\\r\\newfolder\\v\\bin`,
             `c:\\f\\r\\newfolder\\v\\bin`
@@ -87,6 +87,10 @@ context("compress-tag", function(): void {
               valueOf: null,
               toString: null
             }}`;
+          });
+
+          assert.throws(function(): void {
+            compress`${Symbol()}`;
           });
         });
 
@@ -277,7 +281,7 @@ context("compress-tag", function(): void {
           );
         });
 
-        it("should handle escaped URIs correctly", function(): void {
+        it("should not affect escaped backslash before escape character", function(): void {
           assert.strictEqual(
             compressTight`c:\\f\\r\\newfolder\\v\\bin`,
             `c:\\f\\r\\newfolder\\v\\bin`
@@ -296,6 +300,10 @@ context("compress-tag", function(): void {
               valueOf: null,
               toString: null
             }}`;
+          });
+
+          assert.throws(function(): void {
+            compressTight`${Symbol()}`;
           });
         });
 
