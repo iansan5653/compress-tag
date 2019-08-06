@@ -106,6 +106,7 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect escaped template literal characters", function(): void {
+          // eslint-disable-next-line no-useless-escape
           assert.strictEqual(compressTight`\$\{\}$\{}`, `\$\{\}$\{}`);
         });
       });
@@ -319,6 +320,7 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect escaped template literal characters", function(): void {
+          // eslint-disable-next-line no-useless-escape
           assert.strictEqual(compressTight`\$\{\}$\{}`, `\$\{\}$\{}`);
         });
       });
@@ -516,6 +518,7 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect escaped template literal characters", function(): void {
+          // eslint-disable-next-line no-useless-escape
           assert.strictEqual(compress(`\$\{\}$\{}`), `\$\{\}$\{}`);
         });
 
@@ -694,6 +697,7 @@ context("compress-tag", function(): void {
         });
 
         it("should not affect escaped template literal characters", function(): void {
+          // eslint-disable-next-line no-useless-escape
           assert.strictEqual(compressTight(`\$\{\}$\{}`), `\$\{\}$\{}`);
         });
 
