@@ -68,10 +68,15 @@ renderTextContent(c`
 
 ## Installation
 
-Install with:
+Install with NPM:
 
 ```bash
 npm i compress-tag
+```
+
+Or embed on a webpage with UNPKG:
+```html
+<script src="https://unpkg.com/compress-tag"></script>
 ```
 
 ## Usage
@@ -204,7 +209,5 @@ cd compress-tag
 
 Then install dependencies (requires Node.js to be installed):
 ```
-npm i -D
+npm i; npm i -D
 ```
-
-To modify code, edit the corresponding files in 
