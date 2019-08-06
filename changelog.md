@@ -2,6 +2,9 @@
 
 All notable outward-facing changes will be documented in this file.
 
+## 1.1.7
+- Correctly handle a much broader range of possible escaped characters
+
 ## 1.1.6
 - Removed ability to preserve linebreaks when used as wrapper methods (was
   breaking URIs)
