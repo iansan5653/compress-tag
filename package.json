@@ -46,7 +46,9 @@
     "ts-mocha": "^6.0.0",
     "typescript": "^3.5.3"
   },
-  "dependencies": {},
+  "dependencies": {
+    "unraw": "^1.0.0"
+  },
   "nyc": {
     "include": [
       "src/**/*.ts",
