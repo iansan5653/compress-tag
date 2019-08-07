@@ -2,6 +2,9 @@
 
 All notable outward-facing changes will be documented in this file.
 
+## 1.2.0
+- Switch to UMD for more universal compatiblity
+
 ## 1.1.7
 - Correctly handle a much broader range of possible escaped characters
 

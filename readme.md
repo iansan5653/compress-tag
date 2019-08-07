@@ -68,16 +68,15 @@ renderTextContent(c`
 
 ## Installation
 
+This is a UMD module.
+
 Install with NPM:
 
 ```bash
 npm i compress-tag
 ```
 
-Or embed on a webpage with UNPKG:
-```html
-<script src="https://unpkg.com/compress-tag"></script>
-```
+Or embed on a webpage with UNPKG: https://unpkg.com/compress-tag
 
 ## Usage
 
