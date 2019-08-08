@@ -1,6 +1,6 @@
 {
   "name": "compress-tag",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Template literal tag to remove excess whitespace and newlines from strings.",
   "main": "dist/index.js",
   "unpkg": "dist/index.min.js",
