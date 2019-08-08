@@ -66,18 +66,6 @@ renderTextContent(c`
 `);
 ```
 
-## Installation
-
-This is a UMD module.
-
-Install with NPM:
-
-```bash
-npm i compress-tag
-```
-
-Or embed on a webpage with UNPKG: https://unpkg.com/compress-tag
-
 ## Getting Started
 
 `compress-tag` is a UMD module, so it can be used in Node or on the web. Typings are
@@ -107,7 +95,7 @@ t`Example
 
 You can embed it (minified) on a webpage with
 [RequireJS](https://requirejs.org/). The module is available on
-[UNPKG](https://unpkg.com) at https://unpkg.com/compress-tag:
+[UNPKG](https://unpkg.com/compress-tag):
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
