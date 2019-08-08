@@ -112,7 +112,8 @@ You can embed it (minified) on a webpage with
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 <script>
-  require(["https://unpkg.com/compress-tag^1.2.0/dist/index.min.js"], function(compressTag) {
+  require(["https://unpkg.com/compress-tag^1.2.0/dist/index.min.js"], 
+  function(compressTag) {
     compressTag.c`Example
       string.` // => Example string.
     compressTag.t`Example

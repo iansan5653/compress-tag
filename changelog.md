@@ -2,6 +2,9 @@
 
 All notable outward-facing changes will be documented in this file.
 
+## 1.2.1
+- Improve UMD documentation
+
 ## 1.2.0
 - Switch to UMD for more universal compatiblity
 
