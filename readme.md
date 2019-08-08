@@ -78,7 +78,50 @@ npm i compress-tag
 
 Or embed on a webpage with UNPKG: https://unpkg.com/compress-tag
 
-## Usage
+## Getting Started
+
+`compress-tag` is a UMD module, so it can be used in Node or on the web. Typings are
+included for TypeScript as well.
+
+### Usage in Node.JS
+
+`compress-tag` is hosted on [npm](https://www.npmjs.com/compress-tag), so you
+can install with:
+
+```bash
+npm i compress-tag
+```
+
+To use in code:
+
+```js
+import {c, t} from "unraw";
+
+c`Example
+  string.` // => Example string.
+t`Example
+  string.` // => Examplestring.
+```
+
+### Usage in the Browser
+
+You can embed it (minified) on a webpage with
+[RequireJS](https://requirejs.org/). The module is available on
+[UNPKG](https://unpkg.com) at https://unpkg.com/compress-tag:
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+<script>
+  require(["https://unpkg.com/compress-tag^1.2.0/dist/index.min.js"], function(compressTag) {
+    compressTag.c`Example
+      string.` // => Example string.
+    compressTag.t`Example
+      string.` // => Examplestring.
+  });
+</script>
+```
+
+## Documentation
 
 Four template literal tag functions are exported by this module. `compress` and
 `c` are exactly the same - they replace your linebreaks and the whitespace
@@ -131,10 +174,10 @@ let D = t`
 // => <section><h1>Heading</h1><p>This is the content of the section.</p><p>This is another paragraph.</p></section>
 ```
 
-### Preserving Some Linebreaks
+### Preserving Some Linebreaks / Whitespace
 
-You can still output a string that has linebreaks in it simply by using the
-newline character instead of an actual linebreak. For example:
+You can still output a string that has linebreaks and tabs in it simply by using
+the newline (`\n`) and tab (`\t`) characters. For example:
 
 ```js
 let E = c`This has\n\ta new line`;
@@ -145,8 +188,8 @@ let E = c`This has\n\ta new line`;
 ### Chaining
 One drawback to using template literal tags is that they cannot be chained. This
 means that if you are already using template literal tags, you can't use these
-as described above. All of these tags support being used as normal functions in
-this case\*:
+as described above. However, all of these tags support being used as normal
+functions in this case\*:
 
 ```js
 // Assuming `capitalize` is some other tag that makes every letter uppercase:
@@ -157,7 +200,7 @@ let F = c(capitalize`
 // => LOREM IPSUM DOLOR SIT AMET.
 ```
 
-\* **Note**: When using tags as a method, there is no way to preserve newlines;
+\* **Note**: When using tags as a method there is no way to preserve newlines;
 using the `\n` character will not work.
 
 ### ESLint
@@ -172,7 +215,6 @@ ESLint `max-len` setting to enforce the use of these tags:
       "error",
       {
         "code": 80,
-        "ignoreUrls": true,
         "ignoreStrings": false,
         "ignoreTemplateLiterals": false,
       }
