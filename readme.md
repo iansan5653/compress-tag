@@ -194,17 +194,12 @@ npm run check
 This checks your formatting, tests, and for TypeScript compiler errors. If the
 task doesn't fail, you should be good to go.
 
-### How to Contribute
-In order to contribute to this project, first clone the repository and navigate
-to it:
-```bash
-git clone https://github.com/iansan5653/compress-tag.git
-cd compress-tag
-```
-
-Then install dependencies (requires Node.js to be installed):
-```
-npm i -D
-```
-
-To modify code, edit the corresponding files in 
+### Other Tasks
+For your convenience, some other tasks are also provided in the `package.json`:
+* `npm run build` - Compiles TypeScript code to JavaScript
+* `npm run minify` - Generate minified JavaScript files from compiled files
+* `npm run test` - Quickly run tests using TypeScript code without compiling
+* `npm run testWithCoverage` - Run tests and generate coverage report
+* `npm run lint` - Check code for linting errors
+* `npm run check` - Check to ensure code will pass Pipelines checks (see above)
+* `npm run format` - Format code using Prettier
