@@ -68,7 +68,7 @@ context("compress-tag", function(): void {
           );
         });
 
-        it("should handle escaped URIs correctly", function(): void {
+        it("should not affect escaped backslash before escape character", function(): void {
           assert.strictEqual(
             compress`c:\\f\\r\\newfolder\\v\\bin`,
             `c:\\f\\r\\newfolder\\v\\bin`
@@ -88,6 +88,26 @@ context("compress-tag", function(): void {
               toString: null
             }}`;
           });
+
+          assert.throws(function(): void {
+            compress`${Symbol()}`;
+          });
+        });
+
+        it("should not affect Unicode code point escape characters", function(): void {
+          assert.strictEqual(
+            compress`\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`,
+            `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
+          );
+        });
+
+        it("should not affect quotation marks in strings", function(): void {
+          assert.strictEqual(compressTight`"test"'test'"`, `"test"'test'"`);
+        });
+
+        it("should not affect escaped template literal characters", function(): void {
+          // eslint-disable-next-line no-useless-escape
+          assert.strictEqual(compressTight`\$\{\}$\{}`, `\$\{\}$\{}`);
         });
       });
 
@@ -262,7 +282,7 @@ context("compress-tag", function(): void {
           );
         });
 
-        it("should handle escaped URIs correctly", function(): void {
+        it("should not affect escaped backslash before escape character", function(): void {
           assert.strictEqual(
             compressTight`c:\\f\\r\\newfolder\\v\\bin`,
             `c:\\f\\r\\newfolder\\v\\bin`
@@ -282,6 +302,26 @@ context("compress-tag", function(): void {
               toString: null
             }}`;
           });
+
+          assert.throws(function(): void {
+            compressTight`${Symbol()}`;
+          });
+        });
+
+        it("should not affect Unicode code point escape characters", function(): void {
+          assert.strictEqual(
+            compressTight`\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`,
+            `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
+          );
+        });
+
+        it("should not affect quotation marks in strings", function(): void {
+          assert.strictEqual(compressTight`"test"'test'"`, `"test"'test'"`);
+        });
+
+        it("should not affect escaped template literal characters", function(): void {
+          // eslint-disable-next-line no-useless-escape
+          assert.strictEqual(compressTight`\$\{\}$\{}`, `\$\{\}$\{}`);
         });
       });
 
@@ -464,6 +504,24 @@ context("compress-tag", function(): void {
           assert.strictEqual(compress(`${oddString}`), `${oddString}`);
         });
 
+        it("should not affect Unicode code point escape characters", function(): void {
+          assert.strictEqual(
+            compress(
+              `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
+            ),
+            `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
+          );
+        });
+
+        it("should not affect quotation marks in strings", function(): void {
+          assert.strictEqual(compress(`"test"'test'"`), `"test"'test'"`);
+        });
+
+        it("should not affect escaped template literal characters", function(): void {
+          // eslint-disable-next-line no-useless-escape
+          assert.strictEqual(compress(`\$\{\}$\{}`), `\$\{\}$\{}`);
+        });
+
         // Don't test throws because that's a basic behavior of template literals here
       });
 
@@ -623,6 +681,24 @@ context("compress-tag", function(): void {
           // eslint-disable-next-line no-useless-escape
           const oddString = "c:\\f\\r\\n\\v\\b \0\v\f\b\\'\"";
           assert.strictEqual(compressTight(`${oddString}`), `${oddString}`);
+        });
+
+        it("should not affect Unicode code point escape characters", function(): void {
+          assert.strictEqual(
+            compressTight(
+              `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
+            ),
+            `\x61\x62\x63 \u{1F4A9} \u0041 \uD83D\uDE00 http\u00253A\u00252F\u00252Fexample.com`
+          );
+        });
+
+        it("should not affect quotation marks in strings", function(): void {
+          assert.strictEqual(compressTight(`"test"'test'"`), `"test"'test'"`);
+        });
+
+        it("should not affect escaped template literal characters", function(): void {
+          // eslint-disable-next-line no-useless-escape
+          assert.strictEqual(compressTight(`\$\{\}$\{}`), `\$\{\}$\{}`);
         });
 
         // Don't test throws because that's a basic behavior of template literals here

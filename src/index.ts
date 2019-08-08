@@ -6,6 +6,8 @@
  * @license MIT
  */
 
+import unraw from "unraw";
+
 /**
  * A function that can be used to tag a string template literal.
  * @param stringOrStrings A single string value, or when used as a template
@@ -29,48 +31,13 @@ type ChainableTemplateLiteralTag = <T extends TemplateStringsArray | string>(
  * merge([1, 2, 3], ["A", "B", "C", "D", "E"]);
  * // => "1A2B3CDE"
  */
-function mergeAndReduceToString<A extends any[], B extends any[]>(
-  a: A,
-  b: B
-): string {
+function mergeAndReduceToString(a: any[], b: any[]): string {
   let result = "";
   for (let i = 0; i < Math.max(a.length, b.length); i++) {
     if (i in a) result += a[i];
     if (i in b) result += b[i];
   }
   return result;
-}
-
-/**
- * Map of raw escape strings to the characters they represent.
- */
-const escapeCharacters = new Map<string, string>([
-  ["\\'", "'"],
-  ['\\"', '"'],
-  ["\\\\", "\\"],
-  ["\\0", "\0"],
-  ["\\b", "\b"],
-  ["\\f", "\f"],
-  ["\\n", "\n"],
-  ["\\r", "\r"],
-  ["\\t", "\t"],
-  ["\\v", "\v"]
-]);
-
-/**
- * Replace raw escape character strings with their escape characters.
- * @param raw A string where escape characters are represented as raw string
- * values like `\t` rather than `     `.
- * @returns The processed string, with escape characters replaced.
- * @example
- * deescape("\\n");
- * // => "\n"
- */
-function deescape(raw: string): string {
-  return raw.replace(
-    /\\['"\\0bfnrtv]/g,
-    (v): string => escapeCharacters.get(v) || v
-  );
 }
 
 /**
@@ -120,7 +87,7 @@ function generateCompressTag(
           compressedString = compressedString.replace(/\s+$/, "");
         }
         compressedString = removeLineBreaks(compressedString, tight);
-        return deescape(compressedString);
+        return unraw(compressedString);
       }
     );
     return mergeAndReduceToString(compressedStrings, placeholders);
