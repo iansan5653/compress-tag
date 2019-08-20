@@ -4,8 +4,8 @@
 [![Azure DevOps tests](https://img.shields.io/azure-devops/tests/iansan5653/compress-tag/2?compact_message)](https://dev.azure.com/iansan5653/compress-tag/_build/latest?definitionId=2&branchName=master)
 [![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/iansan5653/compress-tag/2)](https://dev.azure.com/iansan5653/compress-tag/_build/latest?definitionId=2&branchName=master)
 [![npm](https://img.shields.io/npm/v/compress-tag)](https://www.npmjs.com/package/compress-tag)
-[![David](https://img.shields.io/david/iansan5653/compress-tag)](https://www.npmjs.com/package/compress-tag?activeTab=dependencies)
-[![David](https://img.shields.io/david/dev/iansan5653/compress-tag)](https://www.npmjs.com/package/compress-tag?activeTab=dependencies)
+[![David](https://img.shields.io/david/iansan5653/compress-tag)](https://david-dm.org/iansan5653/compress-tag)
+[![David](https://img.shields.io/david/dev/iansan5653/compress-tag)](https://david-dm.org/iansan5653/compress-tag?type=dev)
 
 ![Image of code sample](banner.png)
 
