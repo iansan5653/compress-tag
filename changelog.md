@@ -2,8 +2,11 @@
 
 All notable outward-facing changes will be documented in this file.
 
-## 1.2.2 [Unreleased]
-- Update readme
+## 1.2.2
+- Add security policy
+- Update readme links
+- Update all dependencies
+- Clean up some inferred type annotations
 
 ## 1.2.1
 - Improve UMD documentation
