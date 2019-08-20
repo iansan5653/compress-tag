@@ -47,7 +47,7 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "unraw": "^1.2.3"
+    "unraw": "^1.2.4"
   },
   "nyc": {
     "include": [
