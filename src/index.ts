@@ -62,9 +62,7 @@ function removeLineBreaks(text: string, tight: boolean): string {
  * be.
  * @returns A template literal tag.
  */
-function generateCompressTag(
-  tight: boolean = false
-): ChainableTemplateLiteralTag {
+function generateCompressTag(tight = false): ChainableTemplateLiteralTag {
   return function(stringOrStrings, ...placeholders): string {
     // Only happens when used as a wrapper function
     if (typeof stringOrStrings === "string") {
