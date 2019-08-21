@@ -5,7 +5,7 @@
 [![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/iansan5653/compress-tag/2)](https://dev.azure.com/iansan5653/compress-tag/_build/latest?definitionId=2&branchName=master)
 [![npm](https://img.shields.io/npm/v/compress-tag)](https://www.npmjs.com/package/compress-tag)
 [![David](https://david-dm.org/iansan5653/compress-tag.svg)](https://david-dm.org/iansan5653/compress-tag)
-[![David](https://david-dm.org/iansan5653/compress-tag/dev-status.svg)](https://david-dm.org/iansan5653/compress-tag?type=dev)
+[![David](https://david-dm.org/iansan5653/compress-tag/dev-status.svg)](https://david-dm.org/iansan5653/compress-tag?type=dev) [![Greenkeeper badge](https://badges.greenkeeper.io/iansan5653/compress-tag.svg)](https://greenkeeper.io/)
 
 ![Image of code sample](banner.png)
 
