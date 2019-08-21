@@ -6,6 +6,7 @@
 [![npm](https://img.shields.io/npm/v/compress-tag)](https://www.npmjs.com/package/compress-tag)
 [![David](https://david-dm.org/iansan5653/compress-tag.svg)](https://david-dm.org/iansan5653/compress-tag)
 [![David](https://david-dm.org/iansan5653/compress-tag/dev-status.svg)](https://david-dm.org/iansan5653/compress-tag?type=dev)
+[![Greenkeeper badge](https://badges.greenkeeper.io/iansan5653/compress-tag.svg)](https://greenkeeper.io/)
 
 ![Image of code sample](banner.png)
 
@@ -20,6 +21,7 @@ your code still comes out looking like it should. They are also
 [chainable](#Chaining) in case you are already using template literal tags.
 
 In other words, you can replace these:
+
 ```js
 throw new Error(
   "An error occured while parsing the CSV file. Check that the 'delimiters' option is set properly and try again."
@@ -43,6 +45,7 @@ fox jumps over the lazy dog.`);
 ```
 
 with these:
+
 ```js
 throw new Error(c`
   An error occured while parsing the CSV file. Check that the
@@ -70,8 +73,8 @@ renderTextContent(c`
 
 ## Getting Started
 
-`compress-tag` is a UMD module, so it can be used in Node or on the web. Typings are
-included for TypeScript as well.
+`compress-tag` is a UMD module, so it can be used in Node or on the web. Typings
+are included for TypeScript as well.
 
 ### Usage in Node.JS
 
@@ -88,9 +91,9 @@ To use in code:
 import {c, t} from "unraw";
 
 c`Example
-  string.` // => Example string.
+  string.`; // => Example string.
 t`Example
-  string.` // => Examplestring.
+  string.`; // => Examplestring.
 ```
 
 ### Usage in the Browser
@@ -102,12 +105,13 @@ You can embed it (minified) on a webpage with
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 <script>
-  require(["https://unpkg.com/compress-tag^1.2.0/dist/index.min.js"], 
-  function(compressTag) {
+  require(["https://unpkg.com/compress-tag^1.2.0/dist/index.min.js"], function(
+    compressTag
+  ) {
     compressTag.c`Example
-      string.` // => Example string.
+      string.`; // => Example string.
     compressTag.t`Example
-      string.` // => Examplestring.
+      string.`; // => Examplestring.
   });
 </script>
 ```
@@ -177,6 +181,7 @@ let E = c`This has\n\ta new line`;
 ```
 
 ### Chaining
+
 One drawback to using template literal tags is that they cannot be chained. This
 means that if you are already using template literal tags, you can't use these
 as described above. However, all of these tags support being used as normal
@@ -195,10 +200,12 @@ let F = c(capitalize`
 using the `\n` character will not work.
 
 ### ESLint
+
 Since there is now no reason for your strings to be long, you can modify your
 ESLint `max-len` setting to enforce the use of these tags:
 
-*eslintrc.json*
+_eslintrc.json_
+
 ```json
 {
   "rules": {
@@ -207,7 +214,7 @@ ESLint `max-len` setting to enforce the use of these tags:
       {
         "code": 80,
         "ignoreStrings": false,
-        "ignoreTemplateLiterals": false,
+        "ignoreTemplateLiterals": false
       }
     ]
   }
@@ -220,23 +227,27 @@ Found a bug or want to see a feature added?
 [Submit it here!](https://github.com/iansan5653/compress-tag/issues)
 
 Pull requests are always welcome, although to increase your chances of your
-contribution being accepted, opening an issue and linking to it is always a
-good idea.
+contribution being accepted, opening an issue and linking to it is always a good
+idea.
 
 Pull requests will not be merged unless the Azure Pipelines build succeeds. To
 quickly confirm that it will, just run:
+
 ```bash
 npm run check
 ```
+
 This checks your formatting, tests, and for TypeScript compiler errors. If the
 task doesn't fail, you should be good to go.
 
 ### Other Tasks
+
 For your convenience, some other tasks are also provided in the `package.json`:
-* `npm run build` - Compiles TypeScript code to JavaScript
-* `npm run minify` - Generate minified JavaScript files from compiled files
-* `npm run test` - Quickly run tests using TypeScript code without compiling
-* `npm run testWithCoverage` - Run tests and generate coverage report
-* `npm run lint` - Check code for linting errors
-* `npm run check` - Check to ensure code will pass Pipelines checks (see above)
-* `npm run format` - Format code using Prettier
+
+- `npm run build` - Compiles TypeScript code to JavaScript
+- `npm run minify` - Generate minified JavaScript files from compiled files
+- `npm run test` - Quickly run tests using TypeScript code without compiling
+- `npm run testWithCoverage` - Run tests and generate coverage report
+- `npm run lint` - Check code for linting errors
+- `npm run check` - Check to ensure code will pass Pipelines checks (see above)
+- `npm run format` - Format code using Prettier
