@@ -11,9 +11,8 @@
 ![Image of code sample](banner.png)
 
 `compress-tag` is a tiny module that enables significantly more readable code by
-improving the display of
-[string template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
-in your source.
+improving the display of strings in your source code through the use of
+[string template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
 
 This module provides template literal tags that remove line breaks and indents
 from your template literals, so that a string that is formatted to nicely fit in
