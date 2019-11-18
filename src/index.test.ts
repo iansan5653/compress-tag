@@ -812,3 +812,5 @@ context("compress-tag", function(): void {
     });
   });
 });
+
+console.log("##vso[task.setvariable variable=testsRan]true");
