@@ -19,7 +19,7 @@ from your template literals, so that a string that is formatted to nicely fit in
 your code still comes out looking like it should. They are also
 [chainable](#Chaining) in case you are already using template literal tags.
 
-In other words, you can replace these:
+In other words, **you can replace these workarounds**:
 
 ```js
 throw new Error(
@@ -43,7 +43,7 @@ dog. The quick brown fox jumps over the lazy dog. The quick brown \
 fox jumps over the lazy dog.`);
 ```
 
-with these:
+**with these**:
 
 ```js
 throw new Error(c`
