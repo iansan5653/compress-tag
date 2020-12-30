@@ -127,6 +127,8 @@ same - they remove your linebreaks and whitespace with no space.
 ```js
 import {compress, c, compressTight, t} from "compress-tag";
 
+// Use the regular compressor (preserves spaces) for prose:
+
 let A = compress`Lorem ipsum dolor sit amet, consectetur adipiscing
 elit. Suspendisse  sagittis mi quam, ut rhoncus nisi pulvinar in. Duis
 lobortis nisl libero, non imperdiet lectus ultrices sed. Aliquam erat
@@ -148,6 +150,8 @@ feugiat, mattis leo in, blandit nunc. Cras faucibus pellentesque
 dolor, et euismod mauris sagittis vitae. Quisque egestas metus pretium
 mollis tempor.`;
 // => Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis mi quam, ut rhoncus nisi pulvinar in. Duis lobortis nisl libero, non imperdiet lectus ultrices sed. Aliquam erat volutpat. Sed egestas dignissim iaculis. Etiam felis risus, tempor ac dignissim id, vestibulum in mauris. Nam attempus tellus. Aliquam vitae metus tempor, tempus tellus id, vulputate magna. Vivamus a enim feugiat, mattis leo in, blandit nunc. Cras faucibus pellentesque dolor, et euismod mauris sagittis vitae. Quisque egestas metus pretium mollis tempor.
+
+// Use the tight compressor (removes indentation) for code like HTML:
 
 let C = compressTight`
   <section>
