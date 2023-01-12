@@ -87,7 +87,7 @@ npm i compress-tag
 To use in code:
 
 ```js
-import {c, t} from "unraw";
+import {c, t} from "compress-tag";
 
 c`Example
   string.`; // => Example string.
