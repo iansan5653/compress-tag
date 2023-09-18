@@ -10,7 +10,7 @@ import unraw from "unraw";
  */
 type ChainableTemplateLiteralTag = <T extends TemplateStringsArray | string>(
   stringOrStrings: T,
-  ...placeholders: T extends TemplateStringsArray ? any[] : []
+  ...placeholders: T extends TemplateStringsArray ? unknown[] : []
 ) => string;
 
 /**
@@ -23,7 +23,7 @@ type ChainableTemplateLiteralTag = <T extends TemplateStringsArray | string>(
  * merge([1, 2, 3], ["A", "B", "C", "D", "E"]);
  * // => "1A2B3CDE"
  */
-function mergeAndReduceToString(a: any[], b: any[]): string {
+function mergeAndReduceToString(a: unknown[], b: unknown[]): string {
   let result = "";
   for (let i = 0; i < Math.max(a.length, b.length); i++) {
     if (i in a) result += a[i];
@@ -55,7 +55,7 @@ function removeLineBreaks(text: string, tight: boolean): string {
  * @returns A template literal tag.
  */
 function generateCompressTag(tight = false): ChainableTemplateLiteralTag {
-  return function(stringOrStrings, ...placeholders): string {
+  return function (stringOrStrings, ...placeholders): string {
     // Only happens when used as a wrapper function
     if (typeof stringOrStrings === "string") {
       return removeLineBreaks(stringOrStrings, tight).trim();
