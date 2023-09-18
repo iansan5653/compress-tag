@@ -66,9 +66,7 @@
   },
   "files": [
     "dist/index.d.ts",
-    "dist/index.d.ts.map",
     "dist/index.js",
-    "dist/index.js.map",
     "dist/index.min.js"
   ],
   "keywords": [
