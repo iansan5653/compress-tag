@@ -32,12 +32,12 @@ context("compress-tag", function(): void {
             compress`${1} | ${2} | ${0}`,
             `${1} | ${2} | ${0}`
           );
-          assert.strictEqual(compress`${NaN}`, `${NaN}`);
-          assert.strictEqual(compress`${Infinity}`, `${Infinity}`);
+          assert.strictEqual<string>(compress`${NaN}`, `${NaN}`);
+          assert.strictEqual<string>(compress`${Infinity}`, `${Infinity}`);
         });
 
         it("should handle expression placeholders properly", function(): void {
-          assert.strictEqual(compress`${1 + 456}`, `${1 + 456}`);
+          assert.strictEqual<string>(compress`${1 + 456}`, `${1 + 456}`);
           assert.strictEqual(compress`${Math.sqrt(2)}`, `${Math.sqrt(2)}`);
         });
 
@@ -246,12 +246,12 @@ context("compress-tag", function(): void {
             compressTight`${1} | ${2} | ${0}`,
             `${1} | ${2} | ${0}`
           );
-          assert.strictEqual(compressTight`${NaN}`, `${NaN}`);
-          assert.strictEqual(compressTight`${Infinity}`, `${Infinity}`);
+          assert.strictEqual<string>(compressTight`${NaN}`, `${NaN}`);
+          assert.strictEqual<string>(compressTight`${Infinity}`, `${Infinity}`);
         });
 
         it("should handle expression placeholders properly", function(): void {
-          assert.strictEqual(compressTight`${1 + 456}`, `${1 + 456}`);
+          assert.strictEqual<string>(compressTight`${1 + 456}`, `${1 + 456}`);
           assert.strictEqual(compressTight`${Math.sqrt(2)}`, `${Math.sqrt(2)}`);
         });
 
@@ -462,12 +462,12 @@ context("compress-tag", function(): void {
             compress(`${1} | ${2} | ${0}`),
             `${1} | ${2} | ${0}`
           );
-          assert.strictEqual(compress(`${NaN}`), `${NaN}`);
-          assert.strictEqual(compress(`${Infinity}`), `${Infinity}`);
+          assert.strictEqual<string>(compress(`${NaN}`), `${NaN}`);
+          assert.strictEqual<string>(compress(`${Infinity}`), `${Infinity}`);
         });
 
         it("should handle expression placeholders properly", function(): void {
-          assert.strictEqual(compress(`${1 + 456}`), `${1 + 456}`);
+          assert.strictEqual<string>(compress(`${1 + 456}`), `${1 + 456}`);
           assert.strictEqual(compress(`${Math.sqrt(2)}`), `${Math.sqrt(2)}`);
         });
 
@@ -638,12 +638,12 @@ context("compress-tag", function(): void {
             compressTight(`${1} | ${2} | ${0}`),
             `${1} | ${2} | ${0}`
           );
-          assert.strictEqual(compressTight(`${NaN}`), `${NaN}`);
-          assert.strictEqual(compressTight(`${Infinity}`), `${Infinity}`);
+          assert.strictEqual<string>(compressTight(`${NaN}`), `${NaN}`);
+          assert.strictEqual<string>(compressTight(`${Infinity}`), `${Infinity}`);
         });
 
         it("should handle expression placeholders properly", function(): void {
-          assert.strictEqual(compressTight(`${1 + 456}`), `${1 + 456}`);
+          assert.strictEqual<string>(compressTight(`${1 + 456}`), `${1 + 456}`);
           assert.strictEqual(
             compressTight(`${Math.sqrt(2)}`),
             `${Math.sqrt(2)}`
