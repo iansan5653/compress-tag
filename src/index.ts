@@ -1,11 +1,3 @@
-/**
- * @file **compress-tag** | Template literal tag to remove excess
- * whitespace and newlines from strings.
- * @author Ian Sanders
- * @copyright 2019 Ian Sanders
- * @license MIT
- */
-
 import unraw from "unraw";
 
 /**
