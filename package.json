@@ -8,12 +8,11 @@
   "repository": "https://github.com/iansan5653/compress-tag",
   "scripts": {
     "build": "tsc",
-    "minify": "node-minify --compressor uglify-es --input dist/index.js --output dist/index.min.js",
     "test": "ts-mocha src/**/*.test.ts",
     "lint": "eslint src/**/*.ts",
     "check": "npm run build && npm run test && npm run lint",
     "ensureCleanTree": "echo 'Checking to ensure all changes are committed...' && git diff --quiet --exit-code & git diff --quiet --cached --exit-code",
-    "prepublishOnly": "npm run ensureCleanTree && npm run check && npm run minify",
+    "prepublishOnly": "npm run ensureCleanTree && npm run check",
     "postpublish": "cross-var git tag -a $npm_package_version -m \"See changelog.md for release notes.\" && git push --tags && cross-var git tag -d $npm_package_version",
     "format": "prettier src/**/*.test.ts --write"
   },
@@ -23,9 +22,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@node-minify/cli": "^7.1.0",
-    "@node-minify/core": "^7.1.0",
-    "@node-minify/uglify-es": "^5.3.0",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.5",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
@@ -46,8 +42,7 @@
   },
   "files": [
     "dist/index.d.ts",
-    "dist/index.js",
-    "dist/index.min.js"
+    "dist/index.js"
   ],
   "keywords": [
     "strings",
