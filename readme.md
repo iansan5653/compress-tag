@@ -87,26 +87,6 @@ t`Example
   string.`; // => Examplestring.
 ```
 
-### Usage in the Browser
-
-You can embed it (minified) on a webpage with
-[RequireJS](https://requirejs.org/). The module is available on
-[UNPKG](https://unpkg.com/compress-tag):
-
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
-<script>
-  require(["https://unpkg.com/compress-tag^1.2.0/dist/index.min.js"], function(
-    compressTag
-  ) {
-    compressTag.c`Example
-      string.`; // => Example string.
-    compressTag.t`Example
-      string.`; // => Examplestring.
-  });
-</script>
-```
-
 ## Documentation
 
 Four template literal tag functions are exported by this module. `compress` and

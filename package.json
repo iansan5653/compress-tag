@@ -3,7 +3,6 @@
   "version": "2.0.1",
   "description": "Template literal tag to remove excess whitespace and newlines from strings.",
   "main": "dist/index.js",
-  "unpkg": "dist/index.min.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/iansan5653/compress-tag",
   "scripts": {
