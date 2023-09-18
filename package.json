@@ -4,7 +4,10 @@
   "description": "Template literal tag to remove excess whitespace and newlines from strings.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/iansan5653/compress-tag",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iansan5653/compress-tag.git"
+  },
   "scripts": {
     "build": "tsc",
     "test": "ts-mocha src/**/*.test.ts",
