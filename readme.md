@@ -205,7 +205,7 @@ Pull requests are always welcome, although to increase your chances of your
 contribution being accepted, opening an issue and linking to it is always a good
 idea.
 
-Pull requests will not be merged unless the Azure Pipelines build succeeds. To
+Pull requests will not be merged unless the Actions build succeeds. To
 quickly confirm that it will, just run:
 
 ```bash
@@ -222,7 +222,6 @@ For your convenience, some other tasks are also provided in the `package.json`:
 - `npm run build` - Compiles TypeScript code to JavaScript
 - `npm run minify` - Generate minified JavaScript files from compiled files
 - `npm run test` - Quickly run tests using TypeScript code without compiling
-- `npm run testWithCoverage` - Run tests and generate coverage report
 - `npm run lint` - Check code for linting errors
 - `npm run check` - Check to ensure code will pass Pipelines checks (see above)
 - `npm run format` - Format code using Prettier
