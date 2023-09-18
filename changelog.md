@@ -2,6 +2,11 @@
 
 All notable outward-facing changes will be documented in this file.
 
+## 3.0.0
+
+- Remove sourcemaps and definitionmaps from the distribution to resolve resolution errors
+- Remove minified files from the distribution to simplify future maintenance
+
 ## 2.0.1
 
 - Update dependencies to fix security vulnerabilities

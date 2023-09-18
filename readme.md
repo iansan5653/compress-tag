@@ -1,13 +1,5 @@
 # `compress-tag`
 
-[![Build Status](https://dev.azure.com/iansan5653/compress-tag/_apis/build/status/iansan5653.compress-tag?branchName=master)](https://dev.azure.com/iansan5653/compress-tag/_build/latest?definitionId=2&branchName=master)
-[![Azure DevOps tests](https://img.shields.io/azure-devops/tests/iansan5653/compress-tag/2?compact_message)](https://dev.azure.com/iansan5653/compress-tag/_build/latest?definitionId=2&branchName=master)
-[![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/iansan5653/compress-tag/2)](https://dev.azure.com/iansan5653/compress-tag/_build/latest?definitionId=2&branchName=master)
-[![npm](https://img.shields.io/npm/v/compress-tag)](https://www.npmjs.com/package/compress-tag)
-[![David](https://david-dm.org/iansan5653/compress-tag.svg)](https://david-dm.org/iansan5653/compress-tag)
-[![David](https://david-dm.org/iansan5653/compress-tag/dev-status.svg)](https://david-dm.org/iansan5653/compress-tag?type=dev)
-
-
 ![Image of code sample](banner.png)
 
 `compress-tag` is a tiny module that enables significantly more readable code by
@@ -93,26 +85,6 @@ c`Example
   string.`; // => Example string.
 t`Example
   string.`; // => Examplestring.
-```
-
-### Usage in the Browser
-
-You can embed it (minified) on a webpage with
-[RequireJS](https://requirejs.org/). The module is available on
-[UNPKG](https://unpkg.com/compress-tag):
-
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
-<script>
-  require(["https://unpkg.com/compress-tag^1.2.0/dist/index.min.js"], function(
-    compressTag
-  ) {
-    compressTag.c`Example
-      string.`; // => Example string.
-    compressTag.t`Example
-      string.`; // => Examplestring.
-  });
-</script>
 ```
 
 ## Documentation
@@ -233,7 +205,7 @@ Pull requests are always welcome, although to increase your chances of your
 contribution being accepted, opening an issue and linking to it is always a good
 idea.
 
-Pull requests will not be merged unless the Azure Pipelines build succeeds. To
+Pull requests will not be merged unless the Actions build succeeds. To
 quickly confirm that it will, just run:
 
 ```bash
@@ -250,7 +222,6 @@ For your convenience, some other tasks are also provided in the `package.json`:
 - `npm run build` - Compiles TypeScript code to JavaScript
 - `npm run minify` - Generate minified JavaScript files from compiled files
 - `npm run test` - Quickly run tests using TypeScript code without compiling
-- `npm run testWithCoverage` - Run tests and generate coverage report
 - `npm run lint` - Check code for linting errors
 - `npm run check` - Check to ensure code will pass Pipelines checks (see above)
 - `npm run format` - Format code using Prettier
